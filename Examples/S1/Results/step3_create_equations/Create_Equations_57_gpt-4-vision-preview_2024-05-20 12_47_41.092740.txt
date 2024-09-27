@@ -1,0 +1,36 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the flow through the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+pump_flow = pump_N * pump_V
+valve0_flow = valve0_opening * valve0_Flow_Nominal
+valve1_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+Next, we'll write the mass balance for tank1. The rate of change of mass in the tank is equal to the inflow minus the outflow:
+
+```python
+der_tank1_m = valve0_flow - valve1_flow
+```
+
+Since the fluid is incompressible and the tank is open, the rate of change of the water level in the tank is proportional to the rate of change of mass:
+
+```python
+der_tank1_level = der_tank1_m / (tank1_Diameter**2 * 3.14159 / 4)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_flow',
+    'tank1_Diameter', 'der_tank1_m', 'der_tank1_level'
+]
+```
+
+This list includes the control variables for the pump speed and valve openings, the nominal flow parameters for the valves, the diameter of the tank (used to calculate the level), and the derivatives of the mass and level in the tank.
+
+Please note that the actual implementation would require additional information such as the density of water, the cross-sectional area of the pipes, and the specific pump and valve characteristics to calculate the real flow rates. However, for the purpose of this exercise, we are using simplified equations and nominal flow rates for the valves.

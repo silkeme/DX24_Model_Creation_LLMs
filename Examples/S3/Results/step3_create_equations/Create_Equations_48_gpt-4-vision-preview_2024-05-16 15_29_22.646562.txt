@@ -1,0 +1,37 @@
+Based on the provided table, image, and assumptions, we can create a set of equations for the fluid dynamics in the system. We will use the Bernoulli equation for incompressible flow to relate the flow through valves and the change in water level in the tanks. Since the process is adiabatic and there are no energy losses, we can ignore heat transfer and frictional losses.
+
+The equations for the flow through each valve can be given by:
+
+```python
+valveLinear1_V_flow = valveLinear1_Flow_Nominal * valveLinear1_opening * (1 - (valveLinear1_dp / valveLinear1_dp_nominal)**2)**0.5
+valveLinear2_V_flow = valveLinear2_Flow_Nominal * valveLinear2_opening * (1 - (valveLinear2_dp / valveLinear2_dp_nominal)**2)**0.5
+valveLinear3_V_flow = valveLinear3_Flow_Nominal * valveLinear3_opening * (1 - (valveLinear3_dp / valveLinear3_dp_nominal)**2)**0.5
+valveLinear4_V_flow = valveLinear4_Flow_Nominal * valveLinear4_opening * (1 - (valveLinear4_dp / valveLinear4_dp_nominal)**2)**0.5
+valveLinear5_V_flow = valveLinear5_Flow_Nominal * valveLinear5_opening * (1 - (valveLinear5_dp / valveLinear5_dp_nominal)**2)**0.5
+valveLinear6_V_flow = valveLinear6_Flow_Nominal * valveLinear6_opening * (1 - (valveLinear6_dp / valveLinear6_dp_nominal)**2)**0.5
+```
+
+The differential equations for the water level in each tank can be given by the balance of inflow and outflow rates:
+
+```python
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.141592653589793 * (tank2_Diameter / 2)**2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.141592653589793 * (tank3_Diameter / 2)**2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.141592653589793 * (tank4_Diameter / 2)**2)
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear1_Flow_Nominal, valveLinear1_opening, valveLinear1_dp, valveLinear1_dp_nominal,
+    valveLinear2_V_flow, valveLinear2_Flow_Nominal, valveLinear2_opening, valveLinear2_dp, valveLinear2_dp_nominal,
+    valveLinear3_V_flow, valveLinear3_Flow_Nominal, valveLinear3_opening, valveLinear3_dp, valveLinear3_dp_nominal,
+    valveLinear4_V_flow, valveLinear4_Flow_Nominal, valveLinear4_opening, valveLinear4_dp, valveLinear4_dp_nominal,
+    valveLinear5_V_flow, valveLinear5_Flow_Nominal, valveLinear5_opening, valveLinear5_dp, valveLinear5_dp_nominal,
+    valveLinear6_V_flow, valveLinear6_Flow_Nominal, valveLinear6_opening, valveLinear6_dp, valveLinear6_dp_nominal,
+    der_tank1_level, tank1_Diameter, der_tank2_level, tank2_Diameter, der_tank3_level, tank3_Diameter, der_tank4_level, tank4_Diameter
+]
+```
+
+Note: The actual values for the parameters like `valveLinear1_Flow_Nominal`, `valveLinear1_dp_nominal`, `tank1_Diameter`, etc., would be provided in the context where this model is used. The `der_tankX_level` variables represent the rate of change of the water level in each tank, which would be integrated over time to get the actual water level. The `valveLinearX_V_flow` variables represent the volumetric flow rate through each valve. The `valveLinearX_opening` variables are control variables that can be adjusted to control the flow through each valve.

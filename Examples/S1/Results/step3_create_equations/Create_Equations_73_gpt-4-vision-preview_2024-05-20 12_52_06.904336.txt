@@ -1,0 +1,28 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. The fluid is water, which is incompressible, and there are no energy losses or heat transfer.
+
+First, we define the flow through the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+pump_flow = pump_N * pump_V
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+Next, we set up the mass balance for Tank1. The rate of change of the mass in the tank is the difference between the inflow and outflow:
+
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.14159 * (tank1_Diameter / 2)**2)
+```
+
+Now, we can list all the variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal', 'valve0_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'valve1_flow',
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level'
+]
+```
+
+This list includes the control variables for the pump and valves, the parameters for the nominal flow and pressure drop across the valves, the diameter of Tank1, the level of water in Tank1, and the derivative of the tank level, which represents the rate of change of the water level in the tank.

@@ -1,0 +1,5 @@
+system_prompt_step2 = "You are an engineer who analyzes piping and instrumentation diagrams. Your task is to identify the sensors in a P&ID based on the diagram and a given table, in which the elements on the P&ID, their inputs, and their outputs are listed. There can be level indicators and flow indicators in the diagram. In the image, level indicators are always at the right side of the tanks. Flow indicators are always above the pipe and never below. For one number, there can only be one sensor. Check if the type and number really occur in this combination in the image.\nCreate a table with the following columns: sensor name, sensor type, sensor placement. For level indicators, just add the element to the 'sensor placement' column. For flow indicators, add the elements to which the pipe is connected to the 'sensor placement' column. There can only be two elements between which the sensor is placed. If you think you can't do it, try it!"
+
+user_message_step2 = "Here is the table, maybe with some additional information: " + [CompsConnections]
+
+

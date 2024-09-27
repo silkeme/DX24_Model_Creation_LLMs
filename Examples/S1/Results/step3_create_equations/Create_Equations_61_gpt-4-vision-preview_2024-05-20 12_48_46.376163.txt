@@ -1,0 +1,45 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and incompressible, we can assume constant density (ρ) and use volumetric flow rates (Q).
+
+Let's define the equations:
+
+1. Pump equation, relating the pump speed (N) to the volumetric flow rate (Q):
+```python
+pump_Q = pump_N * pump_V
+```
+
+2. Valve equations, relating the valve opening to the volumetric flow rate (Q) through the valve:
+```python
+valve0_Q = valve0_opening * valve0_Flow_Nominal
+valve1_Q = valve1_opening * valve1_Flow_Nominal
+```
+
+3. Tank level equation, derived from the mass balance on the tank:
+```python
+der_tank1_level = (valve0_Q - valve1_Q) / (tank1_Diameter**2 * 3.14159 / 4)
+```
+
+Now, let's store all the variables in a list:
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_Q',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_Q',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_Q',
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed
+- `pump_V`: Volume per pump revolution
+- `pump_Q`: Volumetric flow rate from the pump
+- `valve0_opening`: Opening fraction of valve0
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0
+- `valve0_Q`: Volumetric flow rate through valve0
+- `valve1_opening`: Opening fraction of valve1
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1
+- `valve1_Q`: Volumetric flow rate through valve1
+- `tank1_Diameter`: Diameter of tank1
+- `tank1_level`: Water level in tank1
+- `der_tank1_level`: Rate of change of water level in tank1
+
+Please note that the actual implementation would require additional information such as the pump characteristic curve, valve characteristic curves, and the initial conditions for the tank level. The equations provided are simplified and assume linear relationships between the control variables and the flow rates.

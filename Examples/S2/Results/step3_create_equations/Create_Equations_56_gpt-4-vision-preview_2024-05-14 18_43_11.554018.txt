@@ -1,0 +1,36 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Tank level equations based on incompressible fluid assumption
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.14159 * (tank1_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.14159 * (tank_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.14159 * (tank2_Diameter / 2) ** 2)
+
+# Valve flow equations based on linear valve characteristics and no energy losses
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Update tank levels
+tank1_level += der_tank1_level * time
+tank_level += der_tank_level * time
+tank2_level += der_tank2_level * time
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    time, pump_N, pump_V, pump1_N, pump1_V, pump_flow, pump1_flow,
+    tank1_Diameter, tank_Diameter, tank2_Diameter, tank1_level, tank_level, tank2_level,
+    der_tank1_level, der_tank_level, der_tank2_level, valveLinear1_V_flow, valveLinear2_V_flow,
+    valveLinear3_V_flow, valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal
+]
+```
+
+This list includes all the variables that appear in the equations, as well as the derivatives of the tank levels, which are used to update the tank levels over time. The variables `pump_flow` and `pump1_flow` represent the volumetric flow rates through the pumps, which are calculated based on the pump speed (`pump_N` and `pump1_N`) and the pump volume per revolution (`pump_V` and `pump1_V`). The variables `valveLinear1_V_flow`, `valveLinear2_V_flow`, and `valveLinear3_V_flow` represent the volumetric flow rates through the valves, which are calculated based on the valve openings and nominal flow rates. The derivatives `der_tank1_level`, `der_tank_level`, and `der_tank2_level` represent the rates of change of the water levels in the tanks.

@@ -1,0 +1,43 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Tank level equations based on incompressible fluid assumption
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+
+# Valve flow equations based on linear valve assumption
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Tank water level calculations
+tank1_level = tank1_Height * (tank1_m / (3.141592653589793 * (tank1_Diameter / 2) ** 2 * 1000))
+tank2_level = tank2_Height * (tank2_m / (3.141592653589793 * (tank2_Diameter / 2) ** 2 * 1000))
+tank_level = tank_Height * (tank_m / (3.141592653589793 * (tank_Diameter / 2) ** 2 * 1000))
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    tank1_level, tank2_level, tank_level,
+    pump_N, pump1_N,
+    pump_N_Nominal, pump1_N_Nominal,
+    pump_V, pump1_V,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    tank1_Diameter, tank2_Diameter, tank_Diameter,
+    tank1_Height, tank2_Height, tank_Height,
+    tank1_m, tank2_m, tank_m
+]
+```
+
+This list includes all the variables that appear in the equations, as well as the derivatives of the variables that represent the rates of change over time. The variables starting with 'der_' are the derivatives of the corresponding state variables. The variables 'pump_flow' and 'pump1_flow' represent the volumetric flow rates through the pumps, which are functions of the pump speeds and nominal volumes. The variables 'valveLinear1_V_flow', 'valveLinear2_V_flow', and 'valveLinear3_V_flow' represent the volumetric flow rates through the valves, which are functions of the valve openings and nominal flow rates. The variables 'tank1_level', 'tank2_level', and 'tank_level' represent the water levels in the tanks, which are calculated based on the mass of water in the tanks, the tank dimensions, and the assumption that water is incompressible.

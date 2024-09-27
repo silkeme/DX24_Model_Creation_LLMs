@@ -1,0 +1,49 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the given variable, parameter, and control variable names to construct the equations.
+
+First, let's define the equations for the pump, valves, and tank:
+
+1. Pump equation:
+The pump's volumetric flow rate can be related to the pump speed (N) and pump volume (V):
+```python
+pump_V_flow = pump_N * pump_V
+```
+
+2. Valve equations:
+The flow through a valve can be calculated using the valve opening and a nominal flow rate:
+```python
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+3. Tank level equation:
+The rate of change of the tank level is the difference between the inflow and outflow divided by the cross-sectional area of the tank (A = π * (D/2)^2):
+```python
+A_tank1 = 3.14159 * (tank1_Diameter / 2)**2
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / A_tank1
+```
+
+Now, let's create the list of variables used in the equations:
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_V_flow', 
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_V_flow', 
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_V_flow', 
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed
+- `pump_V`: Volume per pump revolution
+- `pump_V_flow`: Volumetric flow rate of the pump
+- `valve0_opening`: Opening fraction of valve0
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0
+- `valve0_V_flow`: Volumetric flow rate through valve0
+- `valve1_opening`: Opening fraction of valve1
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1
+- `valve1_V_flow`: Volumetric flow rate through valve1
+- `tank1_Diameter`: Diameter of tank1
+- `tank1_level`: Water level in tank1
+- `der_tank1_level`: Rate of change of water level in tank1
+
+Please note that the actual implementation would require additional information such as the initial conditions, boundary conditions, and numerical methods for solving the differential equations.

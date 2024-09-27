@@ -1,0 +1,47 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+```python
+# Equations for the pump
+pump_flow = pump_N * pump_V  # Flow rate through the pump
+
+# Equations for valve0
+valve0_flow = valve0_opening * valve0_Flow_Nominal  # Flow rate through valve0
+
+# Equations for tank1
+der_tank1_level = (valve0_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)  # Rate of change of water level in tank1
+
+# Equations for valve1
+valve1_flow = valve1_opening * valve1_Flow_Nominal  # Flow rate through valve1
+
+# Assuming valve1_V_flow is the flow rate through valve1
+valve1_V_flow = valve1_flow
+
+# Assuming pump_N is the control variable for the pump speed
+pump_N = pump_N
+
+# Assuming valve0_opening and valve1_opening are the control variables for the valve openings
+valve0_opening = valve0_opening
+valve1_opening = valve1_opening
+
+# List of all variables in the equations
+variables = [
+    pump_flow, valve0_flow, der_tank1_level, valve1_flow, valve1_V_flow,
+    pump_N, valve0_opening, valve1_opening,
+    der_pump_medium_T, der_pump_medium_p, der_tank1_level, der_tank1_medium_T,
+    der_pump_U, der_pump_m, der_pump_medium_u, der_pump_rho,
+    der_tank1_U, der_tank1_V, der_tank1_heatTransfer_states_1__d, der_tank1_m, der_tank1_medium_u, der_tank1_ports_1__h_outflow
+]
+
+# Brief description of the used symbols
+# pump_flow: Volume flow rate through the pump
+# valve0_flow: Volume flow rate through valve0
+# der_tank1_level: Derivative of the water level in tank1
+# valve1_flow: Volume flow rate through valve1
+# valve1_V_flow: Volume flow rate through valve1 (used in the tank1 level equation)
+# pump_N: Control variable for the pump speed
+# valve0_opening: Control variable for the opening of valve0
+# valve1_opening: Control variable for the opening of valve1
+# der_*: Variables prefixed with 'der_' represent the time derivative of the respective quantity
+```
+
+This model assumes that the flow through the pump is directly proportional to the pump speed and the pump's volume per revolution. The flow through each valve is assumed to be proportional to the valve opening and its nominal flow rate. The rate of change of the water level in the tank is the difference between the inflow and outflow divided by the cross-sectional area of the tank. The system is assumed to be adiabatic, with no energy losses, and the fluid is incompressible water.

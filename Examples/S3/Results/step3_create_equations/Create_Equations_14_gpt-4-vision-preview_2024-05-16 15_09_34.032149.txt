@@ -1,0 +1,46 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Tank level dynamics (continuity equation)
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.1415 * (tank3_Diameter / 2) ** 2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.1415 * (tank4_Diameter / 2) ** 2)
+
+# Valve flow dynamics (assuming linear valve characteristics)
+valveLinear1_V_flow = valveLinear1_Flow_Nominal * valveLinear1_opening
+valveLinear2_V_flow = valveLinear2_Flow_Nominal * valveLinear2_opening
+valveLinear3_V_flow = valveLinear3_Flow_Nominal * valveLinear3_opening
+valveLinear4_V_flow = valveLinear4_Flow_Nominal * valveLinear4_opening
+valveLinear5_V_flow = valveLinear5_Flow_Nominal * valveLinear5_opening
+valveLinear6_V_flow = valveLinear6_Flow_Nominal * valveLinear6_opening
+
+# Valve pressure drop (not used in the equations due to the assumption of no energy losses)
+valveLinear1_dp = valveLinear1_dp_nominal * (1 - valveLinear1_opening)
+valveLinear2_dp = valveLinear2_dp_nominal * (1 - valveLinear2_opening)
+valveLinear3_dp = valveLinear3_dp_nominal * (1 - valveLinear3_opening)
+valveLinear4_dp = valveLinear4_dp_nominal * (1 - valveLinear4_opening)
+valveLinear5_dp = valveLinear5_dp_nominal * (1 - valveLinear5_opening)
+valveLinear6_dp = valveLinear6_dp_nominal * (1 - valveLinear6_opening)
+
+# List of variables
+variables = [
+    der_tank1_level, der_tank2_level, der_tank3_level, der_tank4_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    valveLinear4_V_flow, valveLinear5_V_flow, valveLinear6_V_flow,
+    valveLinear1_dp, valveLinear2_dp, valveLinear3_dp, valveLinear4_dp,
+    valveLinear5_dp, valveLinear6_dp
+]
+```
+
+Brief description of the used symbols:
+- `der_tankX_level`: Time derivative of the water level in tank X.
+- `valveLinearX_V_flow`: Volume flow rate through valve X.
+- `valveLinearX_dp`: Pressure drop across valve X (not used in the equations due to assumptions).
+- `valveLinearX_opening`: Control variable representing the opening of valve X.
+- `valveLinearX_Flow_Nominal`: Nominal flow rate of valve X.
+- `valveLinearX_dp_nominal`: Nominal pressure drop across valve X (not used in the equations due to assumptions).
+- `tankX_Diameter`: Diameter of tank X.
+- `tankX_Height`: Height of tank X (not used in the equations due to the level being the variable of interest).
+
+Note: The valveLinear7 is excluded from the equations as it is marked as 'Unclear' in the table and is not shown in the image. The fluid properties and tank dimensions are used to calculate the level change rate in the tanks. The valve characteristics are assumed to be linear, and the valve opening is a control variable that affects the flow rate through each valve. The pressure drop across the valves is not used in the equations due to the assumption of no energy losses.

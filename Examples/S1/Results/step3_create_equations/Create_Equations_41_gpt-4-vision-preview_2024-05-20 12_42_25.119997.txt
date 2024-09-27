@@ -1,0 +1,54 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the given variable names and parameters to define the equations for the pump, valves, and tank.
+
+First, let's define the equations for the pump and valves using the flow nominal parameters and control variables for the opening of the valves:
+
+```python
+# Pump equation
+pump_flow = pump_N / pump_N_Nominal * pump_V
+
+# Valve equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - valve0_dp / valve0_dp_nominal)
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - valve1_dp / valve1_dp_nominal)
+```
+
+Next, we'll define the equation for the tank level. The rate of change of the tank level is the difference between the inflow and outflow divided by the cross-sectional area of the tank:
+
+```python
+# Tank cross-sectional area (assuming a cylindrical tank)
+tank1_area = (tank1_Diameter / 2) ** 2 * 3.14159
+
+# Tank level dynamics
+der_tank1_level = (valve0_flow - valve1_flow) / tank1_area
+```
+
+Now, let's store all the variables used in the equations in a list:
+
+```python
+variables = [
+    pump_flow, pump_N, pump_N_Nominal, pump_V,
+    valve0_flow, valve0_opening, valve0_Flow_Nominal, valve0_dp, valve0_dp_nominal,
+    valve1_flow, valve1_opening, valve1_Flow_Nominal, valve1_dp, valve1_dp_nominal,
+    der_tank1_level, tank1_area, tank1_Diameter
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump_N`: Actual speed of the pump
+- `pump_N_Nominal`: Nominal speed of the pump
+- `pump_V`: Volume of the pump
+- `valve0_flow`: Volume flow rate through valve0
+- `valve0_opening`: Opening fraction of valve0
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0
+- `valve1_flow`: Volume flow rate through valve1
+- `valve1_opening`: Opening fraction of valve1
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1
+- `der_tank1_level`: Rate of change of the water level in tank1
+- `tank1_area`: Cross-sectional area of tank1
+- `tank1_Diameter`: Diameter of tank1
+
+Please note that the actual implementation would require additional information such as the initial conditions, the actual values of the parameters, and the control variables. The equations provided are simplified and assume a direct relationship between the control variables and the flow rates, which may not be accurate for a real system. Additionally, the pressure drops across the valves (`valve0_dp` and `valve1_dp`) would typically be functions of the flow rates and other system parameters, but these relationships are not specified here.

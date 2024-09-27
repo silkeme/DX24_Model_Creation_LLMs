@@ -1,0 +1,46 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Tank level dynamics (continuity equation)
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.1415 * (tank3_Diameter / 2) ** 2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.1415 * (tank4_Diameter / 2) ** 2)
+
+# Valve flow dynamics (assuming linear valve characteristics)
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+valveLinear4_V_flow = valveLinear4_opening * valveLinear4_Flow_Nominal
+valveLinear5_V_flow = valveLinear5_opening * valveLinear5_Flow_Nominal
+valveLinear6_V_flow = valveLinear6_opening * valveLinear6_Flow_Nominal
+
+# Valve pressure drop (not used in the equations due to the assumption of no energy losses)
+valveLinear1_dp = valveLinear1_opening * valveLinear1_dp_nominal
+valveLinear2_dp = valveLinear2_opening * valveLinear2_dp_nominal
+valveLinear3_dp = valveLinear3_opening * valveLinear3_dp_nominal
+valveLinear4_dp = valveLinear4_opening * valveLinear4_dp_nominal
+valveLinear5_dp = valveLinear5_opening * valveLinear5_dp_nominal
+valveLinear6_dp = valveLinear6_opening * valveLinear6_dp_nominal
+
+# Since valveLinear7 is unclear, we exclude it from the model
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    der_tank1_level, tank1_Diameter, valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    der_tank2_level, tank2_Diameter, valveLinear4_V_flow,
+    der_tank3_level, tank3_Diameter, valveLinear5_V_flow,
+    der_tank4_level, tank4_Diameter, valveLinear6_V_flow,
+    valveLinear1_opening, valveLinear1_Flow_Nominal, valveLinear2_opening, valveLinear2_Flow_Nominal,
+    valveLinear3_opening, valveLinear3_Flow_Nominal, valveLinear4_opening, valveLinear4_Flow_Nominal,
+    valveLinear5_opening, valveLinear5_Flow_Nominal, valveLinear6_opening, valveLinear6_Flow_Nominal,
+    valveLinear1_dp, valveLinear1_dp_nominal, valveLinear2_dp, valveLinear2_dp_nominal,
+    valveLinear3_dp, valveLinear3_dp_nominal, valveLinear4_dp, valveLinear4_dp_nominal,
+    valveLinear5_dp, valveLinear5_dp_nominal, valveLinear6_dp, valveLinear6_dp_nominal
+]
+```
+
+This list contains all the variables that are present in the equations, including the derivatives of the tank levels and the flow through each valve. The parameters for the valve nominal flow and pressure drop are also included, as well as the tank diameters which are used to calculate the cross-sectional area for the level dynamics. The valve openings are control variables that can be adjusted to control the flow through the system.

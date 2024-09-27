@@ -1,0 +1,39 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+```python
+# Equations for the pump
+pump_flow = pump_N * pump_V  # Volumetric flow rate from the pump
+
+# Equations for valve0
+valve0_flow = valve0_opening * valve0_Flow_Nominal  # Volumetric flow rate through valve0
+
+# Equations for tank1
+der_tank1_level = (valve0_flow - valve1_flow) / (3.14159 * (tank1_Diameter / 2) ** 2)  # Rate of change of water level in tank1
+
+# Equations for valve1
+valve1_flow = valve1_opening * valve1_Flow_Nominal  # Volumetric flow rate through valve1
+
+# List of variables used in the equations
+variables = [
+    'pump_N', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_flow',
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level', 'valve1_flow',
+    'valve1_opening', 'valve1_Flow_Nominal'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Rotational speed of the pump (control variable)
+- `pump_V`: Volume displaced by the pump per rotation (parameter)
+- `pump_flow`: Volumetric flow rate from the pump (variable)
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_flow`: Volumetric flow rate through valve0 (variable)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank1_level`: Water level in tank1 (variable)
+- `der_tank1_level`: Rate of change of water level in tank1 (variable)
+- `valve1_flow`: Volumetric flow rate through valve1 (variable)
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+
+This model assumes that the flow entering the tank is equal to the flow from the pump through valve0 and the flow leaving the tank is through valve1. The rate of change of the water level in the tank is determined by the difference between the inflow and outflow, divided by the cross-sectional area of the tank. The flow through each valve is assumed to be proportional to its opening fraction and its nominal flow rate.

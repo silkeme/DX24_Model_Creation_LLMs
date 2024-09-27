@@ -1,0 +1,12 @@
+model_def['rels'] = [
+    -der_tank1_level + (valve0_V_flow - valve1_V_flow - f_tank1leak)/
+    (sym.pi * (tank1_Diameter / 2) ** 2),
+    -pump_V_flow + valve0_V_flow,
+    -valve0_V_flow + valve0_Flow_Nominal*valve0_opening*(1 - f_valve0),
+    -valve1_V_flow + valve1_Flow_Nominal*valve1_opening*(1 - f_valve1),
+    fdt.DiffConstraint('der_tank1_level', 'tank1_level'),
+    -FI_1 + pump_V_flow,
+    -FI_2 + valve0_V_flow,
+    -LI_3 + tank1_level,
+    -FI_4 + valve1_V_flow
+]

@@ -1,0 +1,51 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the equations for the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+# Pump equation
+pump_flow = pump_N / pump_N_Nominal * pump_V
+
+# Valve equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal * sqrt(pump_dp_pump / valve0_dp_nominal)
+valve1_flow = valve1_opening * valve1_Flow_Nominal * sqrt(tank1_ports_1__p / valve1_dp_nominal)
+```
+
+Next, we'll define the mass balance for the tank, which relates the inflow and outflow to the change in water level:
+
+```python
+# Tank mass balance
+der_tank1_level = (valve0_flow - valve1_flow) / (pi * (tank1_Diameter / 2)**2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_N_Nominal', 'pump_V', 'pump_dp_pump',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp_nominal',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp_nominal',
+    'tank1_ports_1__p', 'tank1_Diameter', 'der_tank1_level',
+    'pi'
+]
+```
+
+Note that `pi` is a constant representing the mathematical constant π.
+
+Brief description of the used symbols:
+- `pump_N`: Current speed of the pump
+- `pump_N_Nominal`: Nominal speed of the pump
+- `pump_V`: Volume flow rate of the pump at nominal speed
+- `pump_dp_pump`: Pressure difference across the pump
+- `valve0_opening`: Opening fraction of valve0 (0-1)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0
+- `valve1_opening`: Opening fraction of valve1 (0-1)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1
+- `tank1_ports_1__p`: Pressure at the outlet of tank1
+- `tank1_Diameter`: Diameter of tank1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `pi`: Mathematical constant π, used for area calculations
+
+This model assumes that the pump speed and valve openings are controlled variables that can be adjusted to control the flow rates through the system. The equations provided are simplified and do not account for various real-world complexities such as pump and valve characteristics, fluid dynamics, and system resistance.

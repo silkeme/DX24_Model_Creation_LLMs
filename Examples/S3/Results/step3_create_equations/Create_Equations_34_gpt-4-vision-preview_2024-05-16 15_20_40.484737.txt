@@ -1,0 +1,40 @@
+Based on the provided information and assumptions, we can create a set of equations to model the dynamics of the fluid flow through the valves and the fluid level in the tanks. We will use the Bernoulli equation for incompressible flow to model the flow through the valves and a simple mass balance for the tanks.
+
+For each valve, the volumetric flow rate `V_flow` can be modeled as a function of the valve opening and the pressure drop across the valve. Since the process is adiabatic and there are no energy losses, we can assume that the pressure drop across the valve is proportional to the flow rate squared. The valve flow equation is given by:
+
+```python
+valveLinear1_V_flow = valveLinear1_Flow_Nominal * valveLinear1_opening * (1 - (valveLinear1_dp / valveLinear1_dp_nominal))
+valveLinear2_V_flow = valveLinear2_Flow_Nominal * valveLinear2_opening * (1 - (valveLinear2_dp / valveLinear2_dp_nominal))
+valveLinear3_V_flow = valveLinear3_Flow_Nominal * valveLinear3_opening * (1 - (valveLinear3_dp / valveLinear3_dp_nominal))
+valveLinear4_V_flow = valveLinear4_Flow_Nominal * valveLinear4_opening * (1 - (valveLinear4_dp / valveLinear4_dp_nominal))
+valveLinear5_V_flow = valveLinear5_Flow_Nominal * valveLinear5_opening * (1 - (valveLinear5_dp / valveLinear5_dp_nominal))
+valveLinear6_V_flow = valveLinear6_Flow_Nominal * valveLinear6_opening * (1 - (valveLinear6_dp / valveLinear6_dp_nominal))
+```
+
+For each tank, the rate of change of the fluid level can be modeled by a mass balance equation, which states that the rate of change of mass in the tank is equal to the mass flow rate into the tank minus the mass flow rate out of the tank. The mass balance equation for each tank is given by:
+
+```python
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (pi * (tank1_Diameter / 2)**2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (pi * (tank2_Diameter / 2)**2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (pi * (tank3_Diameter / 2)**2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (pi * (tank4_Diameter / 2)**2)
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear1_dp, valveLinear1_Flow_Nominal, valveLinear1_dp_nominal, valveLinear1_opening,
+    valveLinear2_V_flow, valveLinear2_dp, valveLinear2_Flow_Nominal, valveLinear2_dp_nominal, valveLinear2_opening,
+    valveLinear3_V_flow, valveLinear3_dp, valveLinear3_Flow_Nominal, valveLinear3_dp_nominal, valveLinear3_opening,
+    valveLinear4_V_flow, valveLinear4_dp, valveLinear4_Flow_Nominal, valveLinear4_dp_nominal, valveLinear4_opening,
+    valveLinear5_V_flow, valveLinear5_dp, valveLinear5_Flow_Nominal, valveLinear5_dp_nominal, valveLinear5_opening,
+    valveLinear6_V_flow, valveLinear6_dp, valveLinear6_Flow_Nominal, valveLinear6_dp_nominal, valveLinear6_opening,
+    der_tank1_level, tank1_Diameter, der_tank2_level, tank2_Diameter, der_tank3_level, tank3_Diameter, der_tank4_level, tank4_Diameter,
+    pi
+]
+```
+
+Note that `pi` is a constant representing the mathematical constant π.
+
+This list of variables and equations provides a basic dynamic model of the system. The actual implementation would require numerical integration of the `der_tankX_level` equations to simulate the system over time.

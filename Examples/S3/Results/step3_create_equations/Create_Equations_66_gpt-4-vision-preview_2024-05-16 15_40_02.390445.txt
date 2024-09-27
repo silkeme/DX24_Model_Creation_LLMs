@@ -1,0 +1,45 @@
+Based on the provided table, image, and variable names, we can create the following equations for the model:
+
+```python
+# Valve flow equations
+valveLinear1_V_flow = valveLinear1_Flow_Nominal * valveLinear1_opening
+valveLinear2_V_flow = valveLinear2_Flow_Nominal * valveLinear2_opening
+valveLinear3_V_flow = valveLinear3_Flow_Nominal * valveLinear3_opening
+valveLinear4_V_flow = valveLinear4_Flow_Nominal * valveLinear4_opening
+valveLinear5_V_flow = valveLinear5_Flow_Nominal * valveLinear5_opening
+valveLinear6_V_flow = valveLinear6_Flow_Nominal * valveLinear6_opening
+
+# Tank level differential equations
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.141592653589793 * (tank3_Diameter / 2) ** 2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.141592653589793 * (tank4_Diameter / 2) ** 2)
+
+# Since valveLinear7 is not connected, we do not include it in the equations
+```
+
+Now, we will store all the variables in one list:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    valveLinear4_V_flow, valveLinear5_V_flow, valveLinear6_V_flow,
+    der_tank1_level, der_tank2_level, der_tank3_level, der_tank4_level,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear4_opening, valveLinear5_opening, valveLinear6_opening,
+    tank1_Diameter, tank2_Diameter, tank3_Diameter, tank4_Diameter,
+    tank1_Height, tank2_Height, tank3_Height, tank4_Height,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    valveLinear4_Flow_Nominal, valveLinear5_Flow_Nominal, valveLinear6_Flow_Nominal
+]
+```
+
+Brief description of the used symbols:
+- `valveLinearX_V_flow`: Volume flow rate through valve X (where X is the valve number).
+- `der_tankX_level`: Time derivative of the water level in tank X (where X is the tank number).
+- `valveLinearX_opening`: Opening fraction of valve X (where X is the valve number, between 0 and 1).
+- `tankX_Diameter`: Diameter of tank X (where X is the tank number).
+- `tankX_Height`: Height of tank X (where X is the tank number).
+- `valveLinearX_Flow_Nominal`: Nominal flow rate through valve X when fully open (where X is the valve number).
+
+Note: The actual Python code would require the definition of the parameters and control variables, as well as the integration of the differential equations to simulate the system over time.

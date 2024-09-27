@@ -1,0 +1,54 @@
+Based on the provided information and the assumptions, we can create a set of equations for the fluid levels in the tanks and the volume flow through the valves. We will use the Bernoulli equation for incompressible flow and the continuity equation for the tanks.
+
+For each valve, the flow rate \( Q \) can be calculated using the valve opening and the nominal flow rate:
+\[ Q_{valve} = valveLinearX\_opening \times valveLinearX\_Flow\_Nominal \]
+
+For each tank, the rate of change of the fluid level \( h \) can be calculated using the inflow and outflow rates and the cross-sectional area \( A \) of the tank:
+\[ \frac{dh_{tankX}}{dt} = \frac{Q_{in} - Q_{out}}{A_{tankX}} \]
+
+The cross-sectional area \( A \) of each tank can be calculated from the diameter \( D \):
+\[ A_{tankX} = \frac{\pi \times tankX\_Diameter^2}{4} \]
+
+Now, let's write down the equations for the system:
+
+```python
+# Valve flow equations
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+valveLinear4_V_flow = valveLinear4_opening * valveLinear4_Flow_Nominal
+valveLinear5_V_flow = valveLinear5_opening * valveLinear5_Flow_Nominal
+valveLinear6_V_flow = valveLinear6_opening * valveLinear6_Flow_Nominal
+valveLinear7_V_flow = valveLinear7_opening * valveLinear7_Flow_Nominal
+
+# Tank cross-sectional areas
+A_tank1 = (3.14159 * tank1_Diameter**2) / 4
+A_tank2 = (3.14159 * tank2_Diameter**2) / 4
+A_tank3 = (3.14159 * tank3_Diameter**2) / 4
+A_tank4 = (3.14159 * tank4_Diameter**2) / 4
+
+# Tank level rate of change equations
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / A_tank1
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / A_tank2
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / A_tank3
+der_tank4_level = (valveLinear4_V_flow - valveLinear6_V_flow) / A_tank4
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    valveLinear4_V_flow, valveLinear5_V_flow, valveLinear6_V_flow,
+    valveLinear7_V_flow, A_tank1, A_tank2, A_tank3, A_tank4,
+    der_tank1_level, der_tank2_level, der_tank3_level, der_tank4_level,
+    tank1_Diameter, tank2_Diameter, tank3_Diameter, tank4_Diameter,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear4_opening, valveLinear5_opening, valveLinear6_opening,
+    valveLinear7_opening, valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal,
+    valveLinear3_Flow_Nominal, valveLinear4_Flow_Nominal, valveLinear5_Flow_Nominal,
+    valveLinear6_Flow_Nominal, valveLinear7_Flow_Nominal
+]
+```
+
+This list contains all the variables that are present in the equations we have created.

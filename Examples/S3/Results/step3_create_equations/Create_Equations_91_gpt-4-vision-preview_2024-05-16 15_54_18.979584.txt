@@ -1,0 +1,45 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Tank level dynamics (continuity equation)
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.1415 * (tank3_Diameter / 2) ** 2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.1415 * (tank4_Diameter / 2) ** 2)
+
+# Valve flow dynamics (assuming linear valve characteristics)
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+valveLinear4_V_flow = valveLinear4_opening * valveLinear4_Flow_Nominal
+valveLinear5_V_flow = valveLinear5_opening * valveLinear5_Flow_Nominal
+valveLinear6_V_flow = valveLinear6_opening * valveLinear6_Flow_Nominal
+
+# Since valveLinear7 is not connected, we do not include it in the model
+```
+
+Now, we will store all the variables in a list:
+
+```python
+variables = [
+    der_tank1_level, tank1_Diameter, valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    der_tank2_level, tank2_Diameter, valveLinear4_V_flow,
+    der_tank3_level, tank3_Diameter, valveLinear5_V_flow,
+    der_tank4_level, tank4_Diameter, valveLinear6_V_flow,
+    valveLinear1_opening, valveLinear1_Flow_Nominal,
+    valveLinear2_opening, valveLinear2_Flow_Nominal,
+    valveLinear3_opening, valveLinear3_Flow_Nominal,
+    valveLinear4_opening, valveLinear4_Flow_Nominal,
+    valveLinear5_opening, valveLinear5_Flow_Nominal,
+    valveLinear6_opening, valveLinear6_Flow_Nominal
+]
+```
+
+Brief description of the used symbols:
+- `der_tankX_level`: Time derivative of the water level in tank X
+- `tankX_Diameter`: Diameter of tank X
+- `valveLinearX_V_flow`: Volume flow rate through valveLinearX
+- `valveLinearX_opening`: Opening fraction of valveLinearX (0-1)
+- `valveLinearX_Flow_Nominal`: Nominal flow rate of valveLinearX when fully open
+
+Note: The equations assume that the valve opening is directly proportional to the flow rate, which is a simplification and may not hold true for all valve types and flow conditions. The actual flow rate through a valve can be affected by the pressure differential across the valve and other factors.

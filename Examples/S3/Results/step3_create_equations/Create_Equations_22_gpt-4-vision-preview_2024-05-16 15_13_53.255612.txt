@@ -1,0 +1,62 @@
+Based on the provided table, image, and assumptions, we can create a set of equations for the fluid flow through the valves and the water level in each tank. We will use the principle of mass conservation for the tanks and a linear valve model for the valves.
+
+For each tank, the rate of change of the water level is proportional to the difference between the inflow and outflow rates. For each valve, the volume flow rate is proportional to the valve opening and the pressure drop across the valve.
+
+Here are the equations:
+
+```python
+# Tank 1
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+
+# Tank 2
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+
+# Tank 3
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.1415 * (tank3_Diameter / 2) ** 2)
+
+# Tank 4
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.1415 * (tank4_Diameter / 2) ** 2)
+
+# Valve Linear 1
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+
+# Valve Linear 2
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+
+# Valve Linear 3
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Valve Linear 4
+valveLinear4_V_flow = valveLinear4_opening * valveLinear4_Flow_Nominal
+
+# Valve Linear 5
+valveLinear5_V_flow = valveLinear5_opening * valveLinear5_Flow_Nominal
+
+# Valve Linear 6
+valveLinear6_V_flow = valveLinear6_opening * valveLinear6_Flow_Nominal
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    der_tank1_level, valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    der_tank2_level, valveLinear4_V_flow,
+    der_tank3_level, valveLinear5_V_flow,
+    der_tank4_level, valveLinear6_V_flow,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear4_opening, valveLinear5_opening, valveLinear6_opening,
+    tank1_Diameter, tank2_Diameter, tank3_Diameter, tank4_Diameter,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    valveLinear4_Flow_Nominal, valveLinear5_Flow_Nominal, valveLinear6_Flow_Nominal
+]
+```
+
+Symbols used:
+- `der_tankX_level`: Rate of change of water level in tank X
+- `valveLinearX_V_flow`: Volume flow rate through valve X
+- `valveLinearX_opening`: Opening fraction of valve X (0-1)
+- `tankX_Diameter`: Diameter of tank X
+- `valveLinearX_Flow_Nominal`: Nominal flow rate of valve X when fully open
+
+Note: The valveLinear7 is not included in the model as it is marked as "Unclear" in the table and is not shown in the image.

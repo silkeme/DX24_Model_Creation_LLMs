@@ -1,0 +1,36 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the control variables `pump_N`, `valve0_opening`, and `valve1_opening` to represent the pump speed and the openings of the valves, respectively. The volume flow through the pump and valves will be represented by `pump_V_flow`, `valve0_V_flow`, and `valve1_V_flow`. The level of water in `tank1` will be represented by `tank1_level`.
+
+The equations for the pump and valves can be derived from the assumption that the fluid is incompressible and there are no energy losses. The flow through the pump and valves is proportional to their respective speeds and openings. The level in the tank changes based on the difference between the inflow and outflow.
+
+Here are the equations:
+
+```python
+# Pump flow equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal))
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal))
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+
+# Assuming valve pressure drops are proportional to the flow squared
+valve0_dp = valve0_V_flow ** 2
+valve1_dp = valve1_V_flow ** 2
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'pump_V_flow', 'valve0_opening', 'valve0_Flow_Nominal',
+    'valve0_dp_nominal', 'valve0_V_flow', 'valve0_dp', 'valve1_opening', 'valve1_Flow_Nominal',
+    'valve1_dp_nominal', 'valve1_V_flow', 'valve1_dp', 'tank1_level', 'tank1_Diameter',
+    'der_tank1_level'
+]
+```
+
+This list includes the variables for the level, inflow, and outflow of `tank1`, the volume flow through each valve and pump, and the derivatives of the variables that change over time (`der_tank1_level`). The parameters such as `pump_V`, `valve0_Flow_Nominal`, `valve1_Flow_Nominal`, `valve0_dp_nominal`, and `valve1_dp_nominal` are constants provided in the parameter list.
+
+Please note that the actual implementation would require additional information such as the initial conditions, the numerical values for the parameters, and the integration method for solving the differential equation for `tank1_level`.

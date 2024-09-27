@@ -1,0 +1,46 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+First, let's define the equations for the pump and valves, assuming that the flow is proportional to the pump speed and valve openings, and that the tank level changes based on the difference between inflow and outflow.
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (tank1_Diameter**2 * 3.14159 / 4)
+```
+
+Now, let's store all the variables in a list as requested:
+
+```python
+variables = [
+    time, pump_medium_T, pump_medium_p, tank1_level, tank1_medium_T,
+    der_pump_medium_T, der_pump_medium_p, der_tank1_level, der_tank1_medium_T,
+    pump_N, pump_V, valve0_opening, valve0_Flow_Nominal, valve1_opening,
+    valve1_Flow_Nominal, tank1_Diameter, pump_V_flow, valve0_V_flow, valve1_V_flow
+]
+```
+
+Brief description of the used symbols:
+- `time`: Time variable
+- `pump_medium_T`: Temperature of the medium in the pump
+- `pump_medium_p`: Pressure of the medium in the pump
+- `tank1_level`: Water level in tank1
+- `tank1_medium_T`: Temperature of the medium in tank1
+- `der_*`: Time derivative of the respective variable
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume per revolution (parameter)
+- `valve0_opening`: Control variable for valve0 opening
+- `valve0_Flow_Nominal`: Nominal flow rate for valve0 (parameter)
+- `valve1_opening`: Control variable for valve1 opening
+- `valve1_Flow_Nominal`: Nominal flow rate for valve1 (parameter)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `pump_V_flow`: Volume flow rate through the pump
+- `valve0_V_flow`: Volume flow rate through valve0
+- `valve1_V_flow`: Volume flow rate through valve1
+
+This model assumes that the pump speed (`pump_N`) and valve openings (`valve0_opening`, `valve1_opening`) are control variables that can be adjusted to control the flow rates. The tank level (`tank1_level`) is calculated based on the difference between the inflow from valve0 and the outflow through valve1. The system is assumed to be adiabatic and without energy losses, and the fluid is incompressible water.

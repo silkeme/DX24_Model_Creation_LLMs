@@ -1,0 +1,61 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+1. Pump equation:
+```python
+pump_flow = pump_N * pump_V
+```
+
+2. Valve flow equations:
+```python
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+3. Tank level equation:
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+```
+
+4. Continuity for the pump and valve pressures:
+```python
+valve0_dp = pump_dp_pump
+valve1_dp = tank1_ports_1__p - tank1_ports_2__p
+```
+
+5. Assuming the tank is open and the process is adiabatic with no energy losses, the pressure at the tank's output is atmospheric, so:
+```python
+tank1_ports_2__p = 0
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    time, pump_N, pump_V, valve0_opening, valve0_Flow_Nominal, valve0_dp, valve0_dp_nominal,
+    valve1_opening, valve1_Flow_Nominal, valve1_dp, valve1_dp_nominal, tank1_Diameter,
+    der_tank1_level, tank1_ports_1__p, tank1_ports_2__p, pump_dp_pump
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `valve0_flow`: Volume flow rate through valve0
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve1_flow`: Volume flow rate through valve1
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `tank1_level`: Water level in tank1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank1_ports_1__p`: Pressure at the inlet of tank1
+- `tank1_ports_2__p`: Pressure at the outlet of tank1
+- `pump_dp_pump`: Pressure increase across the pump
+
+Please note that the actual implementation would require additional information such as the initial conditions, the properties of water, and the integration method for the differential equation.

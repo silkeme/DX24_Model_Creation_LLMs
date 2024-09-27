@@ -1,0 +1,41 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Tank level equations based on flow in and out
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.1415 * (tank_Diameter / 2) ** 2)
+
+# Valve flow equations based on valve opening and nominal flow
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Valve pressure drop equations based on nominal pressure drop
+valveLinear1_dp = valveLinear1_opening * valveLinear1_dp_nominal
+valveLinear2_dp = valveLinear2_opening * valveLinear2_dp_nominal
+valveLinear3_dp = valveLinear3_opening * valveLinear3_dp_nominal
+```
+
+Now, we will store all the variables in one list:
+
+```python
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    valveLinear1_dp, valveLinear2_dp, valveLinear3_dp,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    tank1_Diameter, tank2_Diameter, tank_Diameter,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    valveLinear1_dp_nominal, valveLinear2_dp_nominal, valveLinear3_dp_nominal,
+    pump_V, pump1_V
+]
+```
+
+This list contains the variables used in the equations, including the derivatives of the tank levels, the flow through the pumps and valves, and the pressure drops across the valves. The variables related to the pump and valve operations are also included, such as the pump speeds and valve openings. Additionally, the parameters for the tank diameters and the nominal values for the valve flows and pressure drops are part of the list.

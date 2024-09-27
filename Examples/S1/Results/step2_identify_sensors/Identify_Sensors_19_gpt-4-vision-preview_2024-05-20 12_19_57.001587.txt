@@ -1,0 +1,10 @@
+Based on the Piping and Instrumentation Diagram (P&ID) provided and the table with the elements and their connections, we can identify the following sensors:
+
+| Sensor Name | Sensor Type | Sensor Placement        |
+|-------------|-------------|-------------------------|
+| FI 1        | Flow        | Inlet to pump           |
+| FI 2        | Flow        | Pump to valve0          |
+| LI 3        | Level       | tank1                   |
+| FI 4        | Flow        | valve1 to Outlet        |
+
+Each sensor is placed according to the rules provided: level indicators (LI) are on the right side of the tanks, and flow indicators (FI) are above the pipes connecting two elements. There is one flow indicator for each section of the piping where flow can be measured, and one level indicator for the tank.

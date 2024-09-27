@@ -1,0 +1,15 @@
+Based on the Piping and Instrumentation Diagram (P&ID) provided and the table with the elements, inputs, and outputs, I will identify the sensors and create a table with the required columns: sensor name, sensor type, and sensor placement.
+
+| Sensor Name | Sensor Type   | Sensor Placement            |
+|-------------|---------------|-----------------------------|
+| FI 13       | Flow Indicator | Inlet to valveLinear1       |
+| LI 21       | Level Indicator | tank1                       |
+| FI 14       | Flow Indicator | valveLinear1 to tank1       |
+| LI 22       | Level Indicator | tank2                       |
+| FI 15       | Flow Indicator | valveLinear3 to tank3       |
+| LI 23       | Level Indicator | tank3                       |
+| FI 16       | Flow Indicator | valveLinear4 to tank4       |
+| LI 24       | Level Indicator | tank4                       |
+| FI 17       | Flow Indicator | valveLinear6 to Outlet      |
+
+Note: The sensor placement for flow indicators is between the two elements the pipe is connected to, and for level indicators, it is simply the tank they are associated with. ValveLinear7 is not connected in the diagram, so it is not included in the sensor placement.

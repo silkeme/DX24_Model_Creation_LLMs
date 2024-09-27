@@ -1,0 +1,53 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the given variable, parameter, and control variable names to construct the equations.
+
+First, let's define the equations for the pump, valves, and tank:
+
+1. Pump equation:
+The pump's flow rate can be modeled as a function of the pump speed (N) and the pump's volumetric efficiency (V). Since no specific pump model is provided, we'll assume a linear relationship between the pump speed and the flow rate.
+
+```python
+pump_V_flow = pump_N * pump_V
+```
+
+2. Valve equations:
+The flow through a valve can be modeled as a function of the valve opening and the nominal flow rate at a given pressure drop. Since the system is assumed to be adiabatic and without energy losses, we can use a simple proportional model.
+
+```python
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+3. Tank level equation:
+The rate of change of the tank level can be modeled using the inflow and outflow rates and the cross-sectional area of the tank. The cross-sectional area can be calculated from the tank diameter.
+
+```python
+tank1_Area = (tank1_Diameter / 2) ** 2 * 3.14159
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / tank1_Area
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'valve0_opening', 'valve0_Flow_Nominal',
+    'valve1_opening', 'valve1_Flow_Nominal', 'tank1_Diameter', 'tank1_level',
+    'der_tank1_level', 'pump_V_flow', 'valve0_V_flow', 'valve1_V_flow'
+]
+```
+
+Brief description of the used symbols:
+- `time`: Simulation time variable.
+- `pump_N`: Pump speed control variable.
+- `pump_V`: Pump volumetric efficiency parameter.
+- `valve0_opening`: Control variable for the opening of valve0.
+- `valve0_Flow_Nominal`: Nominal flow rate parameter for valve0.
+- `valve1_opening`: Control variable for the opening of valve1.
+- `valve1_Flow_Nominal`: Nominal flow rate parameter for valve1.
+- `tank1_Diameter`: Diameter parameter of tank1.
+- `tank1_level`: Level of water in tank1.
+- `der_tank1_level`: Rate of change of water level in tank1.
+- `pump_V_flow`: Volumetric flow rate through the pump.
+- `valve0_V_flow`: Volumetric flow rate through valve0.
+- `valve1_V_flow`: Volumetric flow rate through valve1.
+
+Please note that the actual implementation would require additional details such as the pump's characteristic curve, valve characteristics, and the initial conditions for the tank level. The equations provided here are simplified and based on the assumptions given.

@@ -1,0 +1,6 @@
+| Element | Inputs from | Outputs to |
+|---------|-------------|------------|
+| Pump    | Inlet       | Valve0     |
+| Valve0  | Pump        | Tank1      |
+| Tank1   | Valve0      | Valve1     |
+| Valve1  | Tank1       | Outlet     |

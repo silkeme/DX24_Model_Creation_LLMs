@@ -1,0 +1,38 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the control variables `pump_N`, `valve0_opening`, and `valve1_opening` to represent the pump speed and the openings of the valves, respectively. The volume flow through the pump and valves will be represented by `pump_V_flow`, `valve0_V_flow`, and `valve1_V_flow`. The level of water in `tank1` will be represented by `tank1_level`.
+
+The equations for the pump and valves can be derived from the assumption that the fluid is incompressible and there are no energy losses. The flow through the pump is proportional to its speed, and the flow through the valves is proportional to their openings and the pressure drop across them, which we will assume to be nominal since there are no losses.
+
+The equation for the tank level will be based on the conservation of mass, where the rate of change of the tank's volume is equal to the inflow minus the outflow.
+
+Here are the equations:
+
+```python
+# Pump flow equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+
+# Assuming constant density of water, we can relate the mass flow rate to the volume flow rate
+# Since the density of water is not given, we will not include it in the equations
+```
+
+Now, we will store all the variables in a list:
+
+```python
+variables = [
+    time, pump_medium_T, pump_medium_p, tank1_level, tank1_medium_T,
+    der_pump_medium_T, der_pump_medium_p, der_tank1_level, der_tank1_medium_T,
+    pump_U, pump_m, pump_medium_u, pump_rho, tank1_U, tank1_V,
+    tank1_m, tank1_medium_u, pump_V_flow, valve0_V_flow, valve1_V_flow,
+    pump_N, valve0_opening, valve1_opening
+]
+```
+
+This list includes the variables used in the equations, the derivatives of the state variables, and the control variables. The actual values for the parameters like `pump_V`, `valve0_Flow_Nominal`, `valve1_Flow_Nominal`, `tank1_Diameter`, and others would be provided in the simulation environment or would need to be measured or estimated from the system.
+
+Please note that the actual implementation would require additional information such as the density of water, the cross-sectional area of the pipes, and the characteristics of the pump and valves to fully define the flow rates and the dynamics of the system.

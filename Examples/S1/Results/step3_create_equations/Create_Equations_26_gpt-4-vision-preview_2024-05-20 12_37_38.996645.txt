@@ -1,0 +1,28 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for incompressible flow to model the pumps and valves, and a mass balance for the tank.
+
+First, let's define the flow through the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+pump_flow = pump_N / pump_N_Nominal * pump_V
+valve0_flow = valve0_opening * valve0_Flow_Nominal
+valve1_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+Next, we'll write the mass balance for `tank1`. The rate of change of mass in the tank is equal to the mass flow rate in minus the mass flow rate out. Since the fluid is water and incompressible, we can use volume flow rate instead of mass flow rate:
+
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_N_Nominal', 'pump_V', 'valve0_opening', 'valve0_Flow_Nominal',
+    'valve1_opening', 'valve1_Flow_Nominal', 'tank1_Diameter', 'der_tank1_level'
+]
+```
+
+This list includes the control variables for the pump speed (`pump_N`) and valve openings (`valve0_opening`, `valve1_opening`), the nominal pump speed (`pump_N_Nominal`), the nominal flow rates for the valves (`valve0_Flow_Nominal`, `valve1_Flow_Nominal`), the diameter of `tank1` (`tank1_Diameter`), and the derivative of the tank level (`der_tank1_level`).
+
+Please note that the actual implementation would require additional information such as the cross-sectional area of the pipes, the characteristics of the pump, and the specific equations for the valves. The provided equations are simplified and based on the assumptions given.

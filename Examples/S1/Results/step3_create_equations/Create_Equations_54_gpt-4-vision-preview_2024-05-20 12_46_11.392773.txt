@@ -1,0 +1,32 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the control variables `pump_N`, `valve0_opening`, and `valve1_opening` to represent the pump speed and the valve openings, respectively. The volume flow through the pump and valves will be represented by `pump_V_flow`, `valve0_V_flow`, and `valve1_V_flow`. The level of water in `tank1` will be represented by `tank1_level`.
+
+The equations for the pump and valves can be derived from the assumption that the fluid is incompressible and there are no energy losses. The flow through the pump is proportional to its speed, and the flow through the valves is proportional to their openings and the square root of the pressure difference across them (which we will assume to be constant for simplicity).
+
+Here are the equations:
+
+```python
+# Pump flow equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations (simplified, assuming constant pressure difference)
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+
+# Tank level dynamics (continuity equation)
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_V_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_V_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_V_flow',
+    'tank1_level', 'tank1_Diameter', 'der_tank1_level'
+]
+```
+
+This list includes the variables directly used in the equations, as well as the derivatives of the state variables (`der_tank1_level`). The `tank1_Diameter` is a parameter that is used to calculate the cross-sectional area of the tank for the level dynamics.
+
+Please note that this model is highly simplified and assumes constant pressure differences across the valves, which may not be the case in a real system. Additionally, the actual dynamics of the pump and valves can be more complex and may require more detailed modeling.

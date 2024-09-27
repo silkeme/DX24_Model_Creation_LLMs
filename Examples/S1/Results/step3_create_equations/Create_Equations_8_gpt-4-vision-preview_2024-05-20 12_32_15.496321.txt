@@ -1,0 +1,34 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the equations for the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+# Pump equation
+pump_flow = pump_N * pump_V
+
+# Valve equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+Next, we'll define the mass balance for the tank, which relates the inflow and outflow to the change in water level:
+
+```python
+# Tank mass balance
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal', 'valve0_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'valve1_flow',
+    'der_tank1_level', 'tank1_Diameter'
+]
+```
+
+This list includes the variables for the pump speed, pump volume flow rate, valve openings, valve nominal flow rates, valve pressure drops, valve flow rates, the derivative of the tank water level, and the tank diameter.
+
+Please note that the actual implementation would require additional information such as the initial conditions, the physical properties of the water, and the specific geometry of the system components. The equations provided here are simplified and based on the assumptions given.

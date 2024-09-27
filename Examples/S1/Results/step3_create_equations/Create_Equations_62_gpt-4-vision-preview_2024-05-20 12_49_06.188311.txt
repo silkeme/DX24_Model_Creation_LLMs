@@ -1,0 +1,46 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the control variables `pump_N`, `valve0_opening`, and `valve1_opening` to represent the pump speed and the valve openings, respectively. The volume flow through the pump and valves will be represented by `pump_V_flow`, `valve0_V_flow`, and `valve1_V_flow`. The level of water in tank1 will be represented by `tank1_level`.
+
+The equations for the pump and valves can be derived from the assumption that the flow is proportional to the pump speed and valve openings. The equation for the tank level will be derived from the conservation of mass.
+
+Here are the equations:
+
+```python
+# Pump flow equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - valve0_dp / valve0_dp_nominal)
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - valve1_dp / valve1_dp_nominal)
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, we will store all the variables used in the equations in a list:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_V_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal', 'valve0_V_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'valve1_V_flow',
+    'tank1_level', 'tank1_Diameter', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump_V_flow`: Volume flow rate through the pump
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve0_V_flow`: Volume flow rate through valve0
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `valve1_V_flow`: Volume flow rate through valve1
+- `tank1_level`: Water level in tank1 (variable)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `der_tank1_level`: Rate of change of water level in tank1 (derivative of `tank1_level`)

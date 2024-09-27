@@ -1,0 +1,42 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+```python
+# Equations for the pump
+pump_flow = pump_N * pump_V  # Volumetric flow rate from the pump
+
+# Equations for valve0
+valve0_flow = valve0_opening * valve0_Flow_Nominal  # Volumetric flow rate through valve0
+
+# Equations for tank1
+der_tank1_level = (valve0_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)  # Rate of change of water level in tank1
+
+# Equations for valve1
+valve1_flow = valve1_opening * valve1_Flow_Nominal  # Volumetric flow rate through valve1
+
+# Ensure flow conservation at valve1 (outflow from tank1 equals inflow to valve1)
+valve1_V_flow = valve1_flow
+
+# List of all variables in the equations
+variables = [
+    pump_flow, pump_N, pump_V,
+    valve0_flow, valve0_opening, valve0_Flow_Nominal,
+    der_tank1_level, valve1_V_flow, tank1_Diameter,
+    valve1_flow, valve1_opening, valve1_Flow_Nominal
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volumetric flow rate from the pump
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `valve0_flow`: Volumetric flow rate through valve0
+- `valve0_opening`: Valve0 opening fraction (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate through valve0 (parameter)
+- `der_tank1_level`: Rate of change of water level in tank1
+- `valve1_V_flow`: Volumetric flow rate through valve1 (variable)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `valve1_flow`: Volumetric flow rate through valve1
+- `valve1_opening`: Valve1 opening fraction (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate through valve1 (parameter)
+
+This model assumes that the flow through the pump and valves can be controlled directly and that the tank level changes based on the difference between the inflow and outflow rates. The model also assumes that the tank is cylindrical for the purpose of calculating the level change.

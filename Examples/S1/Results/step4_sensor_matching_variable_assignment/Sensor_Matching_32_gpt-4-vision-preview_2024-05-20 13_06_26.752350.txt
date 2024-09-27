@@ -1,0 +1,57 @@
+```python
+model_def = {
+    'type': 'Symbolic',
+    'x': [],  # unknown variables
+    'f': [],  # faults
+    'z': [],  # known variables
+    'parameters': []  # parameters
+}
+
+# Sensors
+FI_1 = 'FI_1'
+FI_2 = 'FI_2'
+LI_3 = 'LI_3'
+FI_4 = 'FI_4'
+
+# Adding sensors to known variables
+model_def['z'] = [FI_1, FI_2, LI_3, FI_4]
+
+# Control variables
+model_def['z'].extend(['pump_N', 'valve0_opening', 'valve1_opening'])
+
+# Parameters
+model_def['parameters'].extend([
+    'pump_V', 'valve0_Flow_Nominal', 'valve1_Flow_Nominal', 'tank1_Diameter'
+])
+
+# Faults
+model_def['f'].extend(['f_tank1leak', 'f_valve0', 'f_valve1', 'f_pumpSlow'])
+
+# Unknown variables
+model_def['x'].extend([
+    'pump_V_flow', 'valve0_V_flow', 'valve1_V_flow', 'tank1_level', 'der_tank1_level'
+])
+
+# Equations
+pump_V_flow = pump_N * pump_V * (1 - f_pumpSlow)  # Pump flow equation with fault
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - f_valve0)  # Valve0 flow equation with fault
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - f_valve1)  # Valve1 flow equation with fault
+der_tank1_level = (valve0_V_flow - valve1_V_flow - f_tank1leak) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)  # Tank level equation with fault
+
+# Sensor equations
+FI_1_eq = FI_1 == pump_V_flow
+FI_2_eq = FI_2 == valve0_V_flow
+LI_3_eq = LI_3 == tank1_level
+FI_4_eq = FI_4 == valve1_V_flow
+
+# Output the complete model
+print(model_def)
+print(pump_V_flow)
+print(valve0_V_flow)
+print(valve1_V_flow)
+print(der_tank1_level)
+print(FI_1_eq)
+print(FI_2_eq)
+print(LI_3_eq)
+print(FI_4_eq)
+```

@@ -1,0 +1,51 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+1. Pump equation:
+```python
+pump_flow = pump_N * pump_V
+```
+
+2. Valve flow equations:
+```python
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+3. Tank level equation:
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+```
+
+4. Tank outflow pressure difference (assuming the outlet is at the bottom of the tank):
+```python
+valve1_dp = tank1_level * 9.81 * 1000  # Density of water is 1000 kg/m^3
+```
+
+Now, let's create a list of all the variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'pump_flow', 'valve0_opening', 'valve0_Flow_Nominal',
+    'valve0_dp', 'valve0_dp_nominal', 'valve0_flow', 'valve1_opening', 'valve1_Flow_Nominal',
+    'valve1_dp', 'valve1_dp_nominal', 'valve1_flow', 'tank1_Diameter', 'tank1_level',
+    'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump_flow`: Volume flow rate of the pump
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve0_flow`: Volume flow rate through valve0
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `valve1_flow`: Volume flow rate through valve1
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank1_level`: Water level in tank1 (variable)
+- `der_tank1_level`: Rate of change of water level in tank1 (derivative of `tank1_level`)

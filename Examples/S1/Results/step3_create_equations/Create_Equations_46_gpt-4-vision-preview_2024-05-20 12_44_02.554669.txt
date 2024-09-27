@@ -1,0 +1,42 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the flow through the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+pump_flow = pump_N * pump_V
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+Next, we'll set up the mass balance for tank1. The rate of change of the mass in the tank is the difference between the inflow and outflow:
+
+```python
+der_tank1_m = valve0_flow - valve1_flow
+```
+
+Since the fluid is incompressible, the volume flow is equal to the mass flow divided by the density of water (which we'll assume to be constant at a typical value of 1000 kg/m^3):
+
+```python
+der_tank1_V = der_tank1_m / 1000
+```
+
+The rate of change of the water level in the tank is the rate of change of the volume divided by the cross-sectional area of the tank (assuming the tank has a constant cross-sectional area):
+
+```python
+tank1_cross_sectional_area = (tank1_Diameter / 2)**2 * 3.14159
+der_tank1_level = der_tank1_V / tank1_cross_sectional_area
+```
+
+Now, let's collect all the variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'tank1_Diameter', 'der_tank1_m',
+    'der_tank1_V', 'der_tank1_level', 'tank1_cross_sectional_area'
+]
+```
+
+This list of variables includes the time, control variables for the pump and valves, parameters for the valves, the diameter of the tank (used to calculate the cross-sectional area), and the derivatives of the mass, volume, and level of the tank.
+
+Please note that this is a simplified model and does not take into account various real-world factors such as pump and valve characteristics beyond the nominal flow, the actual geometry of the tank, and potential energy losses.

@@ -1,0 +1,45 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the equations for the pump and valves:
+
+```python
+# Pump equation
+pump_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal
+valve1_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+Next, we'll define the mass balance for the tank. The rate of change of the mass in the tank is equal to the mass flow in minus the mass flow out.
+
+```python
+# Tank mass balance
+der_tank1_level = (valve0_flow - valve1_flow) / (3.14159 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's store all the variables in a list:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'valve0_opening', 'valve1_opening',
+    'valve0_Flow_Nominal', 'valve1_Flow_Nominal', 'tank1_Diameter',
+    'pump_flow', 'valve0_flow', 'valve1_flow', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `time`: Simulation time variable.
+- `pump_N`: Pump speed control variable.
+- `pump_V`: Pump volume per revolution (parameter).
+- `valve0_opening`: Control variable for the opening of valve0.
+- `valve1_opening`: Control variable for the opening of valve1.
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter).
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter).
+- `tank1_Diameter`: Diameter of tank1 (parameter).
+- `pump_flow`: Volumetric flow rate through the pump.
+- `valve0_flow`: Volumetric flow rate through valve0.
+- `valve1_flow`: Volumetric flow rate through valve1.
+- `der_tank1_level`: Rate of change of the water level in tank1.
+
+This model assumes that the flow through the pump and valves can be directly controlled or is a function of their respective control variables and parameters. The tank level is calculated based on the difference between the inflow and outflow volumetric rates, assuming a cylindrical tank shape for the area calculation.

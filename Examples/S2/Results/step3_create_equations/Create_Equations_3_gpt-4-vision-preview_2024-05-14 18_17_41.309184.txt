@@ -1,0 +1,54 @@
+Based on the provided table, image, and variable names, we can create a dynamical model for the system. We will use the following assumptions:
+
+- The fluid in the system is water, which is incompressible.
+- There are no energy losses, and the process is adiabatic.
+- The tanks are open to the atmosphere, so the pressure at the water surface is constant and equal to atmospheric pressure.
+
+Let's define the equations for the volume flow through the valves and pumps and the fluid level in the tanks.
+
+```python
+# Equations for pumps
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * (1 - valveLinear1_dp / valveLinear1_dp_nominal)
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * (1 - valveLinear2_dp / valveLinear2_dp_nominal)
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * (1 - valveLinear3_dp / valveLinear3_dp_nominal)
+
+# List of all variables
+variables = [
+    time, pump_flow, pump1_flow, tank_level, tank1_level, tank2_level, der_tank1_level, der_tank2_level, der_tank_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow, pump_N, pump1_N, valveLinear1_opening,
+    valveLinear2_opening, valveLinear3_opening, pump_N_Nominal, pump1_N_Nominal, valveLinear1_Flow_Nominal,
+    valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal, valveLinear1_dp_nominal, valveLinear2_dp_nominal,
+    valveLinear3_dp_nominal, pump_V, pump1_V, tank_Diameter, tank1_Diameter, tank2_Diameter, tank_Height,
+    tank1_Height, tank2_Height, valveLinear1_dp, valveLinear2_dp, valveLinear3_dp
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump1_flow`: Volume flow rate through pump1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `der_tank2_level`: Rate of change of water level in tank2
+- `der_tank_level`: Rate of change of water level in tank
+- `valveLinear1_V_flow`: Volume flow rate through valveLinear1
+- `valveLinear2_V_flow`: Volume flow rate through valveLinear2
+- `valveLinear3_V_flow`: Volume flow rate through valveLinear3
+- `pump_N`, `pump1_N`: Control variable for the speed of the pumps
+- `valveLinear1_opening`, `valveLinear2_opening`, `valveLinear3_opening`: Control variable for the opening of the valves
+- `pump_N_Nominal`, `pump1_N_Nominal`: Nominal speed of the pumps
+- `valveLinear1_Flow_Nominal`, `valveLinear2_Flow_Nominal`, `valveLinear3_Flow_Nominal`: Nominal flow rate of the valves
+- `valveLinear1_dp_nominal`, `valveLinear2_dp_nominal`, `valveLinear3_dp_nominal`: Nominal pressure drop across the valves
+- `pump_V`, `pump1_V`: Volume of the pumps
+- `tank_Diameter`, `tank1_Diameter`, `tank2_Diameter`: Diameter of the tanks
+- `tank_Height`, `tank1_Height`, `tank2_Height`: Height of the tanks
+- `valveLinear1_dp`, `valveLinear2_dp`, `valveLinear3_dp`: Pressure drop across the valves
+
+The list `variables` contains all the variables that are used in the equations.

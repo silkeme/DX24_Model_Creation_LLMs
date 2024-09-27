@@ -1,0 +1,85 @@
+```python
+model_def = {
+    'type': 'Symbolic',
+    'x': [],  # unknown variables
+    'f': [],  # faults
+    'z': [],  # known variables
+    'parameters': []  # parameters
+}
+
+# Sensors
+FI_1 = 'FI_1'
+LI_2 = 'LI_2'
+FI_3 = 'FI_3'
+LI_4 = 'LI_4'
+FI_5 = 'FI_5'
+LI_6 = 'LI_6'
+FI_7 = 'FI_7'
+
+# Known variables from sensors
+model_def['z'] = [FI_1, LI_2, FI_3, LI_4, FI_5, LI_6, FI_7]
+
+# Control variables
+pump_N = 'pump_N'
+pump1_N = 'pump1_N'
+valveLinear1_opening = 'valveLinear1_opening'
+valveLinear2_opening = 'valveLinear2_opening'
+valveLinear3_opening = 'valveLinear3_opening'
+
+# Adding control variables to known variables
+model_def['z'].extend([pump_N, pump1_N, valveLinear1_opening, valveLinear2_opening, valveLinear3_opening])
+
+# Parameters
+parameters = [
+    'pipe_Length', 'pipe4_Length', 'pipe5_Length', 'pipe1_Length', 'pipe2_Length', 'pipe6_Length', 'pipe7_Length',
+    'pipe8_Length', 'pipe_Diameter', 'pipe4_Diameter', 'pipe5_Diameter', 'pipe1_Diameter', 'pipe2_Diameter',
+    'pipe6_Diameter', 'pipe7_Diameter', 'pipe3_Diameter', 'tank_Diameter', 'tank1_Diameter', 'tank2_Diameter',
+    'tank_Height', 'tank1_Height', 'tank2_Height', 'pump_N_Nominal', 'pump1_N_Nominal', 'valveLinear1_Flow_Nominal',
+    'valveLinear2_Flow_Nominal', 'valveLinear3_Flow_Nominal', 'valveLinear1_dp_nominal', 'valveLinear2_dp_nominal',
+    'valveLinear3_dp_nominal', 'pump_V', 'pump1_V'
+]
+
+# Adding parameters to the model definition
+model_def['parameters'].extend(parameters)
+
+# Faults
+f_tank1leak = 'f_tank1leak'
+f_tank2leak = 'f_tank2leak'
+f_valve1 = 'f_valve1'
+f_valve2 = 'f_valve2'
+f_valve3 = 'f_valve3'
+
+# Adding faults to the model definition
+model_def['f'].extend([f_tank1leak, f_tank2leak, f_valve1, f_valve2, f_valve3])
+
+# Unknown variables
+model_def['x'] = [
+    'pump_flow', 'pump1_flow',
+    'der_tank1_level', 'der_tank_level', 'der_tank2_level',
+    'valveLinear1_V_flow', 'valveLinear2_V_flow', 'valveLinear3_V_flow'
+]
+
+# Equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+der_tank1_level = (FI_1 - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - FI_5) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+der_tank2_level = (FI_1 - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * (1 - f_valve1)
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * (1 - f_valve2)
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * (1 - f_valve3)
+
+# Sensor equations
+FI_1 = pump_flow
+LI_2 = der_tank1_level
+FI_3 = valveLinear1_V_flow
+LI_4 = der_tank_level
+FI_5 = pump1_flow
+LI_6 = der_tank2_level
+FI_7 = valveLinear3_V_flow
+
+# Remove the now empty variables list
+del variables
+```

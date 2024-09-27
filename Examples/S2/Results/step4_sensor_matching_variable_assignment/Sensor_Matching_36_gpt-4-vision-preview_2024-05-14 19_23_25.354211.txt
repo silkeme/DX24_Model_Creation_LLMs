@@ -1,0 +1,82 @@
+```python
+model_def = {
+    'type': 'Symbolic',
+    'x': [],  # unknown variables
+    'f': [],  # faults
+    'z': [],  # known variables
+    'parameters': []  # parameters
+}
+
+# Sensors
+FI_1 = None
+LI_2 = None
+FI_3 = None
+LI_4 = None
+FI_5 = None
+LI_6 = None
+FI_7 = None
+
+model_def['z'] = [FI_1, LI_2, FI_3, LI_4, FI_5, LI_6, FI_7]
+
+# Parameters
+model_def['parameters'] = [
+    'pipe_Length', 'pipe4_Length', 'pipe5_Length', 'pipe1_Length', 'pipe2_Length', 'pipe6_Length', 'pipe7_Length', 'pipe8_Length',
+    'pipe_Diameter', 'pipe4_Diameter', 'pipe5_Diameter', 'pipe1_Diameter', 'pipe2_Diameter', 'pipe6_Diameter', 'pipe7_Diameter', 'pipe3_Diameter',
+    'tank_Diameter', 'tank1_Diameter', 'tank2_Diameter', 'tank_Height', 'tank1_Height', 'tank2_Height',
+    'pump_N_Nominal', 'pump1_N_Nominal', 'valveLinear1_Flow_Nominal', 'valveLinear2_Flow_Nominal', 'valveLinear3_Flow_Nominal',
+    'valveLinear1_dp_nominal', 'valveLinear2_dp_nominal', 'valveLinear3_dp_nominal', 'pump_V', 'pump1_V'
+]
+
+# Control variables
+pump_N = None
+pump1_N = None
+valveLinear1_opening = None
+valveLinear2_opening = None
+valveLinear3_opening = None
+
+model_def['z'].extend([pump_N, pump1_N, valveLinear1_opening, valveLinear2_opening, valveLinear3_opening])
+
+# Faults
+f_tank1leak = None
+f_tank2leak = None
+f_valve1 = None
+f_valve2 = None
+f_valve3 = None
+
+model_def['f'] = [f_tank1leak, f_tank2leak, f_valve1, f_valve2, f_valve3]
+
+# Unknown variables
+model_def['x'] = [
+    'time', 'pump_flow', 'pump1_flow', 'der_tank1_level', 'der_tank2_level', 'der_tank_level',
+    'valveLinear1_V_flow', 'valveLinear2_V_flow', 'valveLinear3_V_flow', 'tank1_level',
+    'tank2_level', 'tank_level'
+]
+
+# Equations for pumps
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.14159265359 * (tank1_Diameter / 2) ** 2) - f_tank1leak
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.14159265359 * (tank2_Diameter / 2) ** 2) - f_tank2leak
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.14159265359 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * (1 - f_valve1)
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * (1 - f_valve2)
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * (1 - f_valve3)
+
+# Equations for water level in tanks
+tank1_level = der_tank1_level * time
+tank2_level = der_tank2_level * time
+tank_level = der_tank_level * time
+
+# Sensor equations
+FI_1 = pump_flow
+LI_2 = tank1_level
+FI_3 = valveLinear1_V_flow
+LI_4 = tank_level
+FI_5 = pump1_flow
+LI_6 = tank2_level
+FI_7 = valveLinear3_V_flow
+```

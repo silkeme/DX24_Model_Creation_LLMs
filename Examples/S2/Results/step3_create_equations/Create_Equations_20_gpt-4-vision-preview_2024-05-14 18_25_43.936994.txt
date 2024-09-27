@@ -1,0 +1,51 @@
+Based on the provided table, image, and variable names, we can create a dynamical model for the system. We will use the following assumptions:
+
+- The fluid in the system is water, which is incompressible.
+- There are no energy losses, and the process is adiabatic.
+- The tanks are open to the atmosphere, so the pressure at the water surface is constant.
+
+Let's define the equations for the volume flow through the valves and pumps and the fluid level in the tanks.
+
+For the pumps, we can use the pump speed (N) and the pump volume (V) to calculate the volume flow rate. For the valves, we can use the valve opening and the nominal flow rate to calculate the actual flow rate. For the tanks, we can use the conservation of mass to relate the inflow, outflow, and the rate of change of the tank level.
+
+Here are the equations:
+
+```python
+# Pump equations
+pump_V_flow = pump_N * pump_V
+pump1_V_flow = pump1_N * pump1_V
+
+# Valve equations
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Tank level equations (derived from mass balance)
+der_tank1_level = (pump_V_flow - valveLinear1_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_V_flow - valveLinear3_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_V_flow) / (3.1415 * (tank_Diameter / 2) ** 2)
+
+# Tank volume equations
+tank1_fluidVolume = tank1_level * 3.1415 * (tank1_Diameter / 2) ** 2
+tank2_fluidVolume = tank2_level * 3.1415 * (tank2_Diameter / 2) ** 2
+tank_fluidVolume = tank_level * 3.1415 * (tank_Diameter / 2) ** 2
+```
+
+Now, let's create a list of all the variables used in the equations:
+
+```python
+variables = [
+    pump_V_flow, pump1_V_flow,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    tank1_fluidVolume, tank2_fluidVolume, tank_fluidVolume,
+    tank1_level, tank2_level, tank_level,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    tank1_Diameter, tank2_Diameter, tank_Diameter,
+    pump_V, pump1_V,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal
+]
+```
+
+This list includes the variables directly from the equations, as well as the control variables and parameters that are used within them.

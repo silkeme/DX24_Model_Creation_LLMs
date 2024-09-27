@@ -1,0 +1,40 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Tank level equations based on incompressible fluid assumption
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.1415 * (tank_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+
+# Valve flow equations based on linear valve assumption
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Outlet flow equations
+# Assuming outlet flow is equal to the flow through the valve leading to it
+outlet1_flow = valveLinear2_V_flow
+outlet2_flow = valveLinear3_V_flow
+```
+
+Now, let's create a list of all the variables used in the equations:
+
+```python
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank_level, der_tank2_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    outlet1_flow, outlet2_flow,
+    pump_N, pump1_N,
+    pump_V, pump1_V,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    tank1_Diameter, tank_Diameter, tank2_Diameter
+]
+```
+
+This list includes the variables for the level, inflow, and outflow of each tank, and the volume flow through each valve and pump. It also includes the derivatives of the tank levels, which are necessary for the dynamic aspect of the model. The parameters and control variables are used as constants in the equations.

@@ -1,0 +1,10 @@
+| Element       | Inputs from | Outputs to   |
+|---------------|-------------|--------------|
+| pump          | Inlet       | tank1, tank2 |
+| tank1         | pump        | valveLinear1 |
+| valveLinear1  | tank1       | tank         |
+| tank          | valveLinear1| pump1        |
+| pump1         | tank        | valveLinear2 |
+| valveLinear2  | pump1       | Outlet1      |
+| tank2         | pump        | valveLinear3 |
+| valveLinear3  | tank2       | Outlet2      |

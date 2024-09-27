@@ -1,0 +1,38 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Tank level dynamics (assuming cross-sectional area A = π * D^2 / 4 for a cylindrical tank)
+tank1_cross_sectional_area = 3.14159 * tank1_Diameter**2 / 4
+tank_cross_sectional_area = 3.14159 * tank_Diameter**2 / 4
+tank2_cross_sectional_area = 3.14159 * tank2_Diameter**2 / 4
+
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / tank1_cross_sectional_area
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / tank_cross_sectional_area
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / tank2_cross_sectional_area
+
+# Valve flow equations (assuming linear valve characteristics)
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+```
+
+Now, we will store all the variables in one list:
+
+```python
+variables = [
+    pump_flow, pump1_flow,
+    tank1_cross_sectional_area, tank_cross_sectional_area, tank2_cross_sectional_area,
+    der_tank1_level, der_tank_level, der_tank2_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    pump_N, pump1_N, valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    tank1_Diameter, tank_Diameter, tank2_Diameter,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    pump_V, pump1_V
+]
+```
+
+This list contains the variables used in the equations, which represent the flow through the pumps and valves, as well as the rate of change of the water level in each tank. The parameters for the diameters of the tanks and the nominal flow rates and openings of the valves are also included, as they are necessary for calculating the flows and levels.

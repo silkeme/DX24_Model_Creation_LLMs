@@ -1,0 +1,33 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the given variable names and parameters to define the equations for the pump, valves, and tank.
+
+First, let's define the equations for the pump and valves using the flow nominal parameters and control variables for the opening of the valves:
+
+```python
+# Pump equation
+pump_flow = pump_N / pump_N_Nominal * pump_V
+
+# Valve equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal
+valve1_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+Next, we'll define the equation for the tank level. The rate of change of the tank level is the difference between the inflow and outflow divided by the cross-sectional area of the tank:
+
+```python
+# Tank level equation
+tank1_cross_sectional_area = (tank1_Diameter / 2) ** 2 * 3.14159
+der_tank1_level = (valve0_flow - valve1_flow) / tank1_cross_sectional_area
+```
+
+Now, let's create a list of all the variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_N_Nominal', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_flow',
+    'tank1_Diameter', 'tank1_cross_sectional_area', 'der_tank1_level'
+]
+```
+
+These equations and variables represent a simple model of the system dynamics, assuming incompressible flow, no energy losses, and adiabatic process conditions. The tank is considered open, and the fluid is water. The pump equation relates the pump speed to the flow rate, and the valve equations relate the valve openings to the flow rates through them. The tank level equation calculates the rate of change of the water level in the tank based on the difference between the inflow and outflow.

@@ -1,0 +1,43 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+```python
+# Equations for the pump
+pump_flow = pump_N * pump_V  # Flow rate through the pump
+
+# Equations for valve0
+valve0_flow = valve0_opening * valve0_Flow_Nominal  # Flow rate through valve0
+
+# Equations for tank1
+der_tank1_level = (valve0_flow - valve1_V_flow) / (3.14159265359 * (tank1_Diameter / 2) ** 2)  # Rate of change of tank1 water level
+
+# Equations for valve1
+valve1_flow = valve1_opening * valve1_Flow_Nominal  # Flow rate through valve1
+
+# Assuming valve1 flow is equal to the outflow from tank1
+valve1_V_flow = valve1_flow
+
+# List of variables used in the equations
+variables = [
+    pump_N, pump_V, pump_flow,
+    valve0_opening, valve0_Flow_Nominal, valve0_flow,
+    tank1_Diameter, tank1_level, der_tank1_level,
+    valve1_opening, valve1_Flow_Nominal, valve1_flow, valve1_V_flow
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Control variable for the pump speed
+- `pump_V`: Parameter for the pump volume
+- `pump_flow`: Calculated flow rate through the pump
+- `valve0_opening`: Control variable for the opening of valve0
+- `valve0_Flow_Nominal`: Parameter for the nominal flow rate of valve0
+- `valve0_flow`: Calculated flow rate through valve0
+- `tank1_Diameter`: Parameter for the diameter of tank1
+- `tank1_level`: Variable for the water level in tank1
+- `der_tank1_level`: Rate of change of the water level in tank1
+- `valve1_opening`: Control variable for the opening of valve1
+- `valve1_Flow_Nominal`: Parameter for the nominal flow rate of valve1
+- `valve1_flow`: Calculated flow rate through valve1
+- `valve1_V_flow`: Variable for the volume flow through valve1 (equal to `valve1_flow` in this model)
+
+This model assumes that the flow through the pump is directly controlled by the pump speed and volume, the flow through each valve is proportional to its opening and nominal flow rate, and the rate of change of the water level in the tank is determined by the difference between the inflow and outflow divided by the cross-sectional area of the tank. The process is assumed to be adiabatic, with no energy losses, and the fluid is incompressible water. The tanks are open to the atmosphere.

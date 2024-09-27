@@ -1,0 +1,55 @@
+Based on the provided table, image, and assumptions, we can create a set of equations for the fluid dynamics in the system. We will use the Bernoulli equation for incompressible flow and the continuity equation for the tanks.
+
+For each valveLinear, the volumetric flow rate `V_flow` can be calculated as a function of the valve opening and the nominal flow rate at the nominal pressure drop:
+
+```python
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * sqrt(valveLinear1_dp / valveLinear1_dp_nominal)
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * sqrt(valveLinear2_dp / valveLinear2_dp_nominal)
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * sqrt(valveLinear3_dp / valveLinear3_dp_nominal)
+valveLinear4_V_flow = valveLinear4_opening * valveLinear4_Flow_Nominal * sqrt(valveLinear4_dp / valveLinear4_dp_nominal)
+valveLinear5_V_flow = valveLinear5_opening * valveLinear5_Flow_Nominal * sqrt(valveLinear5_dp / valveLinear5_dp_nominal)
+valveLinear6_V_flow = valveLinear6_opening * valveLinear6_Flow_Nominal * sqrt(valveLinear6_dp / valveLinear6_dp_nominal)
+```
+
+For each tank, the rate of change of the water level `der_tankX_level` can be calculated from the difference between the inflow and outflow rates divided by the cross-sectional area of the tank (assuming the tank cross-section is constant):
+
+```python
+tank1_Area = (tank1_Diameter / 2) ** 2 * pi
+tank2_Area = (tank2_Diameter / 2) ** 2 * pi
+tank3_Area = (tank3_Diameter / 2) ** 2 * pi
+tank4_Area = (tank4_Diameter / 2) ** 2 * pi
+
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / tank1_Area
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / tank2_Area
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / tank3_Area
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / tank4_Area
+```
+
+Now, we can compile the list of variables used in the equations:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear1_opening, valveLinear1_Flow_Nominal, valveLinear1_dp, valveLinear1_dp_nominal,
+    valveLinear2_V_flow, valveLinear2_opening, valveLinear2_Flow_Nominal, valveLinear2_dp, valveLinear2_dp_nominal,
+    valveLinear3_V_flow, valveLinear3_opening, valveLinear3_Flow_Nominal, valveLinear3_dp, valveLinear3_dp_nominal,
+    valveLinear4_V_flow, valveLinear4_opening, valveLinear4_Flow_Nominal, valveLinear4_dp, valveLinear4_dp_nominal,
+    valveLinear5_V_flow, valveLinear5_opening, valveLinear5_Flow_Nominal, valveLinear5_dp, valveLinear5_dp_nominal,
+    valveLinear6_V_flow, valveLinear6_opening, valveLinear6_Flow_Nominal, valveLinear6_dp, valveLinear6_dp_nominal,
+    der_tank1_level, tank1_Area, der_tank2_level, tank2_Area, der_tank3_level, tank3_Area, der_tank4_level, tank4_Area,
+    tank1_Diameter, tank2_Diameter, tank3_Diameter, tank4_Diameter
+]
+```
+
+Note that we have not included the variables for `valveLinear7` as it is marked as "Unclear" in the table and is not shown in the image. We also assume that the pressure drop across each valve (`valveLinearX_dp`) is known or can be measured, as it is not provided in the variable list.
+
+The symbols used in the equations are as follows:
+- `valveLinearX_V_flow`: Volumetric flow rate through valve X
+- `valveLinearX_opening`: Opening fraction of valve X
+- `valveLinearX_Flow_Nominal`: Nominal flow rate of valve X
+- `valveLinearX_dp`: Pressure drop across valve X
+- `valveLinearX_dp_nominal`: Nominal pressure drop for valve X
+- `der_tankX_level`: Rate of change of water level in tank X
+- `tankX_Area`: Cross-sectional area of tank X
+- `tankX_Diameter`: Diameter of tank X
+
+This set of equations and variables provides a basic dynamic model for the water levels in the tanks and the volumetric flow rates through the valves.

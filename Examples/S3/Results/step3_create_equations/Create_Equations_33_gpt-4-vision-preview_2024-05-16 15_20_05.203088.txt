@@ -1,0 +1,39 @@
+Based on the provided table, image, and variable names, we can create a dynamical model for the system. We will use the Bernoulli equation for incompressible flow to model the flow through the valves and the mass balance for the tanks to model the water level.
+
+First, we define the flow through each valve as a function of the valve opening and the nominal flow rate, assuming a linear relationship between valve opening and flow rate:
+
+```python
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+valveLinear4_V_flow = valveLinear4_opening * valveLinear4_Flow_Nominal
+valveLinear5_V_flow = valveLinear5_opening * valveLinear5_Flow_Nominal
+valveLinear6_V_flow = valveLinear6_opening * valveLinear6_Flow_Nominal
+```
+
+Next, we define the mass balance for each tank, which is the rate of change of the tank's water level. The inflow is the sum of the flows into the tank, and the outflow is the sum of the flows out of the tank:
+
+```python
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.1415 * (tank3_Diameter / 2) ** 2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.1415 * (tank4_Diameter / 2) ** 2)
+```
+
+Now, we can create a list of all the variables used in the equations:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    valveLinear4_V_flow, valveLinear5_V_flow, valveLinear6_V_flow,
+    der_tank1_level, der_tank2_level, der_tank3_level, der_tank4_level,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear4_opening, valveLinear5_opening, valveLinear6_opening,
+    tank1_Diameter, tank2_Diameter, tank3_Diameter, tank4_Diameter,
+    tank1_Height, tank2_Height, tank3_Height, tank4_Height,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    valveLinear4_Flow_Nominal, valveLinear5_Flow_Nominal, valveLinear6_Flow_Nominal
+]
+```
+
+This list contains the variables as they occur in the equations, without defining them as symbols. The equations describe the flow through each valve and the rate of change of the water level in each tank. The variables `valveLinear1_opening` to `valveLinear6_opening` are the control variables that determine the valve openings, and the parameters like `tank1_Diameter` and `valveLinear1_Flow_Nominal` are system parameters that define the physical properties of the tanks and the nominal flow rates of the valves.

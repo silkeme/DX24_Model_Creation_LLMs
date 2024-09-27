@@ -1,0 +1,29 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the equations for the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+# Pump equation
+pump_flow_rate = pump_N * pump_V  # Flow rate is proportional to pump speed and pump volume
+
+# Valve equations
+valve0_flow_rate = valve0_opening * valve0_Flow_Nominal  # Flow rate is proportional to valve opening and nominal flow
+valve1_flow_rate = valve1_opening * valve1_Flow_Nominal
+
+# Tank equation using mass balance
+# The rate of change of the tank's water level is proportional to the difference between inflow and outflow
+der_tank1_level = (valve0_flow_rate - valve1_flow_rate) / (tank1_Diameter**2 * 3.14159 / 4)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_flow_rate',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_flow_rate',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_flow_rate',
+    'tank1_Diameter', 'der_tank1_level'
+]
+```
+
+This list includes the control variables for the pump and valves, the flow rates through the pump and valves, and the derivative of the tank level. The equations assume that the flow rate through the pump and valves can be controlled directly by the pump speed and valve openings, and that the tank level changes based on the difference between the inflow and outflow rates.

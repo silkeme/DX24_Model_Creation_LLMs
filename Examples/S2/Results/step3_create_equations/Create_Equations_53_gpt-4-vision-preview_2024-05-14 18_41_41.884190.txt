@@ -1,0 +1,45 @@
+Based on the provided table, variable names, parameter names, control variable names, and the image of the system, we can create the following equations for the model:
+
+```python
+# Equations for pumps
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# List of all variables used in the equations
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank_level, der_tank2_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    pump_N, pump1_N, pump_V, pump1_V,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    tank1_Diameter, tank_Diameter, tank2_Diameter
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump1_flow`: Volume flow rate through pump1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `der_tank_level`: Rate of change of water level in tank
+- `der_tank2_level`: Rate of change of water level in tank2
+- `valveLinear1_V_flow`: Volume flow rate through valveLinear1
+- `valveLinear2_V_flow`: Volume flow rate through valveLinear2
+- `valveLinear3_V_flow`: Volume flow rate through valveLinear3
+- `pump_N`, `pump1_N`: Control variable for the speed of the pumps
+- `pump_V`, `pump1_V`: Volume per revolution for the pumps
+- `valveLinear1_opening`, `valveLinear2_opening`, `valveLinear3_opening`: Control variable for the opening of the valves
+- `valveLinear1_Flow_Nominal`, `valveLinear2_Flow_Nominal`, `valveLinear3_Flow_Nominal`: Nominal flow rate for the valves
+- `tank1_Diameter`, `tank_Diameter`, `tank2_Diameter`: Diameter of the tanks
+
+Note: The equations are based on the assumption that the fluid is incompressible, there are no energy losses, the process is adiabatic, and the tanks are open. The actual flow rates through the pumps and valves depend on the control variables `pump_N`, `pump1_N`, `valveLinear1_opening`, `valveLinear2_opening`, and `valveLinear3_opening`. The rate of change of water level in the tanks is derived from the conservation of mass, considering the cross-sectional area of the tanks and the flow rates in and out.

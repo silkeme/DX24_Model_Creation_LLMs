@@ -1,0 +1,51 @@
+Based on the provided table, variable names, parameter names, control variable names, and the image of the system, we can create the following equations for the model:
+
+```python
+# Equations for pumps
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.14159 * tank1_Diameter**2 / 4)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.14159 * tank2_Diameter**2 / 4)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.14159 * tank_Diameter**2 / 4)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# List of all variables
+variables = [
+    time, pump_medium_h, pump_medium_p, pump1_medium_h, pump1_medium_p, tank_level, tank_medium_h, tank1_level, tank1_medium_h, tank2_level, tank2_medium_h,
+    der_pump_medium_h, der_pump_medium_p, der_pump1_medium_h, der_pump1_medium_p, der_tank_level, der_tank_medium_h, der_tank1_level, der_tank1_medium_h, der_tank2_level, der_tank2_medium_h,
+    der_pump_U, der_pump_m, der_pump_medium_u, der_pump_rho, der_pump1_U, der_pump1_m, der_pump1_medium_u, der_pump1_rho, der_tank_U, der_tank_V, der_tank_heatTransfer_states_1__d,
+    der_tank_m, der_tank_medium_u, der_tank1_U, der_tank1_V, der_tank1_heatTransfer_states_1__d, der_tank1_m, der_tank1_medium_u, der_tank2_U, der_tank2_V, der_tank2_heatTransfer_states_1__d,
+    der_tank2_m, der_tank2_medium_u, pump_flow, pump1_flow, valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow through the pump
+- `pump1_flow`: Volume flow through pump1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `der_tank2_level`: Rate of change of water level in tank2
+- `der_tank_level`: Rate of change of water level in tank
+- `valveLinear1_V_flow`: Volume flow through valveLinear1
+- `valveLinear2_V_flow`: Volume flow through valveLinear2
+- `valveLinear3_V_flow`: Volume flow through valveLinear3
+- `pump_N`: Control variable for pump speed
+- `pump1_N`: Control variable for pump1 speed
+- `valveLinear1_opening`: Control variable for valveLinear1 opening
+- `valveLinear2_opening`: Control variable for valveLinear2 opening
+- `valveLinear3_opening`: Control variable for valveLinear3 opening
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump1_V`: Pump1 volume per revolution (parameter)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank2_Diameter`: Diameter of tank2 (parameter)
+- `tank_Diameter`: Diameter of tank (parameter)
+- `valveLinear1_Flow_Nominal`: Nominal flow through valveLinear1 (parameter)
+- `valveLinear2_Flow_Nominal`: Nominal flow through valveLinear2 (parameter)
+- `valveLinear3_Flow_Nominal`: Nominal flow through valveLinear3 (parameter)
+
+The list `variables` contains all the variables that are used in the equations.

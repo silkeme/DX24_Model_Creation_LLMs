@@ -1,0 +1,60 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Tank level equations based on incompressible fluid assumption
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+
+# Valve flow equations based on linear valve characteristics and no energy losses
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Tank water level as a function of volume
+tank1_level = tank1_m / (3.141592653589793 * (tank1_Diameter / 2) ** 2 * tank1_Height)
+tank_level = tank_m / (3.141592653589793 * (tank_Diameter / 2) ** 2 * tank_Height)
+tank2_level = tank2_m / (3.141592653589793 * (tank2_Diameter / 2) ** 2 * tank2_Height)
+```
+
+Now, we will store all the variables used in the equations in one list:
+
+```python
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank_level, der_tank2_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    tank1_level, tank_level, tank2_level,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    tank1_Diameter, tank_Diameter, tank2_Diameter,
+    tank1_Height, tank_Height, tank2_Height,
+    pump_V, pump1_V,
+    tank1_m, tank_m, tank2_m,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump1_flow`: Volume flow rate through pump1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `der_tank_level`: Rate of change of water level in tank
+- `der_tank2_level`: Rate of change of water level in tank2
+- `valveLinear1_V_flow`: Volume flow rate through valveLinear1
+- `valveLinear2_V_flow`: Volume flow rate through valveLinear2
+- `valveLinear3_V_flow`: Volume flow rate through valveLinear3
+- `tank1_level`: Water level in tank1
+- `tank_level`: Water level in tank
+- `tank2_level`: Water level in tank2
+- `pump_N`, `pump1_N`: Pump rotational speeds
+- `valveLinear1_opening`, `valveLinear2_opening`, `valveLinear3_opening`: Valve openings
+- `tank1_Diameter`, `tank_Diameter`, `tank2_Diameter`: Diameters of the tanks
+- `tank1_Height`, `tank_Height`, `tank2_Height`: Heights of the tanks
+- `pump_V`, `pump1_V`: Volumes displaced per pump revolution
+- `tank1_m`, `tank_m`, `tank2_m`: Mass of water in each tank
+- `valveLinear1_Flow_Nominal`, `valveLinear2_Flow_Nominal`, `valveLinear3_Flow_Nominal`: Nominal flow rates through the valves

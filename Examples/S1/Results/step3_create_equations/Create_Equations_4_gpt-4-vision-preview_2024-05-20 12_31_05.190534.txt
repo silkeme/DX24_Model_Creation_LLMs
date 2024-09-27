@@ -1,0 +1,44 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and incompressible, we can assume constant density (ρ) and use volumetric flow rates (Q).
+
+Let's define the equations:
+
+1. Pump equation, relating the pump speed (N) to the volumetric flow rate (Q):
+```python
+pump_Q = pump_N * pump_V
+```
+
+2. Valve equations, relating the valve opening to the volumetric flow rate (Q):
+```python
+valve0_Q = valve0_opening * valve0_Flow_Nominal
+valve1_Q = valve1_opening * valve1_Flow_Nominal
+```
+
+3. Tank level equation, derived from mass balance (rate of change of mass is equal to the mass flow rate in minus mass flow rate out):
+```python
+der_tank1_level = (valve0_Q - valve1_Q) / (tank1_Diameter**2 * 3.14159 / 4)
+```
+
+Now, let's store all the variables in a list:
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'valve0_opening', 'valve1_opening',
+    'valve0_Flow_Nominal', 'valve1_Flow_Nominal', 'tank1_Diameter',
+    'pump_Q', 'valve0_Q', 'valve1_Q', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `time`: Simulation time variable.
+- `pump_N`: Pump speed control variable.
+- `pump_V`: Pump volume per revolution (parameter).
+- `valve0_opening`: Control variable for valve0 opening.
+- `valve1_opening`: Control variable for valve1 opening.
+- `valve0_Flow_Nominal`: Nominal flow rate for valve0 (parameter).
+- `valve1_Flow_Nominal`: Nominal flow rate for valve1 (parameter).
+- `tank1_Diameter`: Diameter of tank1 (parameter).
+- `pump_Q`: Volumetric flow rate through the pump.
+- `valve0_Q`: Volumetric flow rate through valve0.
+- `valve1_Q`: Volumetric flow rate through valve1.
+- `der_tank1_level`: Rate of change of water level in tank1.
+
+Please note that this is a simplified model and does not account for various real-world factors such as pump and valve characteristics, pipe losses, or changes in water density with temperature.

@@ -1,0 +1,43 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+First, let's define the equations for the pump and valves, assuming that the flow is proportional to the pump speed and valve openings, and that the tank level changes based on the difference between inflow and outflow.
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_V_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_V_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_V_flow',
+    'der_tank1_level', 'tank1_Diameter'
+]
+```
+
+This list includes the control variables for the pump and valves, the flow through the pump and valves, and the derivative of the tank level, which represents the rate of change of the water level in the tank. The tank diameter is also included as it is necessary for calculating the tank level.
+
+Symbols used:
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump_V_flow`: Volume flow rate through the pump
+- `valve0_opening`: Valve 0 opening control variable
+- `valve0_Flow_Nominal`: Nominal flow rate for valve 0 (parameter)
+- `valve0_V_flow`: Volume flow rate through valve 0
+- `valve1_opening`: Valve 1 opening control variable
+- `valve1_Flow_Nominal`: Nominal flow rate for valve 1 (parameter)
+- `valve1_V_flow`: Volume flow rate through valve 1
+- `der_tank1_level`: Derivative of tank 1 water level with respect to time
+- `tank1_Diameter`: Diameter of tank 1 (parameter)
+
+Please note that the actual implementation would require additional information such as the pump's characteristics, the valve characteristics, and the initial conditions for the tank level. Additionally, the equations assume a linear relationship between control variables and flow rates, which may not be accurate for real pumps and valves.

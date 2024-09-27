@@ -1,0 +1,51 @@
+Based on the provided table, image, and assumptions, we can create a set of equations for the fluid dynamics in the system. We will use the Bernoulli equation for incompressible flow to relate the flow through valves and the change in water level in the tanks. Since the process is adiabatic and there are no energy losses, we will not consider heat transfer or friction losses.
+
+The equations for the flow through each valve can be given by:
+
+```python
+valveLinear1_V_flow = valveLinear1_Flow_Nominal * valveLinear1_opening * (1 - (valveLinear1_dp / valveLinear1_dp_nominal)**2)**0.5
+valveLinear2_V_flow = valveLinear2_Flow_Nominal * valveLinear2_opening * (1 - (valveLinear2_dp / valveLinear2_dp_nominal)**2)**0.5
+valveLinear3_V_flow = valveLinear3_Flow_Nominal * valveLinear3_opening * (1 - (valveLinear3_dp / valveLinear3_dp_nominal)**2)**0.5
+valveLinear4_V_flow = valveLinear4_Flow_Nominal * valveLinear4_opening * (1 - (valveLinear4_dp / valveLinear4_dp_nominal)**2)**0.5
+valveLinear5_V_flow = valveLinear5_Flow_Nominal * valveLinear5_opening * (1 - (valveLinear5_dp / valveLinear5_dp_nominal)**2)**0.5
+valveLinear6_V_flow = valveLinear6_Flow_Nominal * valveLinear6_opening * (1 - (valveLinear6_dp / valveLinear6_dp_nominal)**2)**0.5
+```
+
+The equations for the water level in each tank can be given by the differential equations:
+
+```python
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.14159 * (tank1_Diameter / 2)**2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.14159 * (tank2_Diameter / 2)**2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.14159 * (tank3_Diameter / 2)**2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.14159 * (tank4_Diameter / 2)**2)
+```
+
+The pressure drop across each valve (`valveLinearX_dp`) can be related to the water levels in the tanks:
+
+```python
+valveLinear1_dp = tank1_level * 9.81
+valveLinear2_dp = (tank1_level - tank2_level) * 9.81
+valveLinear3_dp = (tank1_level - tank3_level) * 9.81
+valveLinear4_dp = (tank2_level - tank4_level) * 9.81
+valveLinear5_dp = (tank3_level - tank4_level) * 9.81
+valveLinear6_dp = tank4_level * 9.81
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    valveLinear1_V_flow, valveLinear1_Flow_Nominal, valveLinear1_opening, valveLinear1_dp, valveLinear1_dp_nominal,
+    valveLinear2_V_flow, valveLinear2_Flow_Nominal, valveLinear2_opening, valveLinear2_dp, valveLinear2_dp_nominal,
+    valveLinear3_V_flow, valveLinear3_Flow_Nominal, valveLinear3_opening, valveLinear3_dp, valveLinear3_dp_nominal,
+    valveLinear4_V_flow, valveLinear4_Flow_Nominal, valveLinear4_opening, valveLinear4_dp, valveLinear4_dp_nominal,
+    valveLinear5_V_flow, valveLinear5_Flow_Nominal, valveLinear5_opening, valveLinear5_dp, valveLinear5_dp_nominal,
+    valveLinear6_V_flow, valveLinear6_Flow_Nominal, valveLinear6_opening, valveLinear6_dp, valveLinear6_dp_nominal,
+    der_tank1_level, tank1_Diameter, tank1_level,
+    der_tank2_level, tank2_Diameter, tank2_level,
+    der_tank3_level, tank3_Diameter, tank3_level,
+    der_tank4_level, tank4_Diameter, tank4_level
+]
+```
+
+This list includes the variables for the volume flow through each valve, the differential variables for the level of each tank, and the parameters for the diameter and nominal flow of each valve. The pressure drop across each valve is also included, which is calculated based on the water levels in the tanks.

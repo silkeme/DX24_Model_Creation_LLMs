@@ -1,0 +1,49 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equations
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Tank level equations based on incompressible fluid assumption
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.1415 * (tank1_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.1415 * (tank_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.1415 * (tank2_Diameter / 2) ** 2)
+
+# Valve flow equations based on linear valve characteristics and no energy losses
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Update tank levels
+tank1_level += der_tank1_level * time
+tank_level += der_tank_level * time
+tank2_level += der_tank2_level * time
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    time, pump_N, pump_V, pump1_N, pump1_V, pump_flow, pump1_flow,
+    tank1_Diameter, tank_Diameter, tank2_Diameter, tank1_level, tank_level, tank2_level,
+    der_tank1_level, der_tank_level, der_tank2_level, valveLinear1_opening,
+    valveLinear2_opening, valveLinear3_opening, valveLinear1_Flow_Nominal,
+    valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal, valveLinear1_V_flow,
+    valveLinear2_V_flow, valveLinear3_V_flow
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`, `pump1_N`: Control variable for the speed of the pumps
+- `pump_V`, `pump1_V`: Volume per revolution for the pumps
+- `pump_flow`, `pump1_flow`: Volume flow rate through the pumps
+- `tank1_Diameter`, `tank_Diameter`, `tank2_Diameter`: Diameters of the tanks
+- `tank1_level`, `tank_level`, `tank2_level`: Water levels in the tanks
+- `der_tank1_level`, `der_tank_level`, `der_tank2_level`: Time derivatives of the water levels in the tanks
+- `valveLinear1_opening`, `valveLinear2_opening`, `valveLinear3_opening`: Control variable for the opening of the valves
+- `valveLinear1_Flow_Nominal`, `valveLinear2_Flow_Nominal`, `valveLinear3_Flow_Nominal`: Nominal flow rates for the valves
+- `valveLinear1_V_flow`, `valveLinear2_V_flow`, `valveLinear3_V_flow`: Volume flow rate through the valves
+- `time`: Time variable for dynamic simulation
+
+Please note that the above equations and variable list are based on the assumptions provided and the system's schematic. The actual implementation may require additional considerations such as initial conditions, boundary conditions, and numerical integration methods.

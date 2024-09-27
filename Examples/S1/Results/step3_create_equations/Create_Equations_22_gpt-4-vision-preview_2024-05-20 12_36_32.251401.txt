@@ -1,0 +1,42 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+First, let's define the equations for the pump and valves, assuming that the flow is proportional to the pump speed and valve openings, and that the tank level changes based on the difference between inflow and outflow.
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+
+# Tank level dynamics
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.14159 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_V_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_V_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_V_flow',
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume parameter
+- `pump_V_flow`: Volume flow through the pump
+- `valve0_opening`: Control variable for valve0 opening
+- `valve0_Flow_Nominal`: Nominal flow parameter for valve0
+- `valve0_V_flow`: Volume flow through valve0
+- `valve1_opening`: Control variable for valve1 opening
+- `valve1_Flow_Nominal`: Nominal flow parameter for valve1
+- `valve1_V_flow`: Volume flow through valve1
+- `tank1_Diameter`: Parameter for the diameter of tank1
+- `tank1_level`: Variable for the water level in tank1
+- `der_tank1_level`: Derivative of the tank1 water level with respect to time
+
+This model assumes that the pump speed and valve openings are directly controlling the flow rates, and that the tank level changes based on the net flow rate into and out of the tank. The model does not account for any losses or compressibility of the fluid, as per the assumptions.

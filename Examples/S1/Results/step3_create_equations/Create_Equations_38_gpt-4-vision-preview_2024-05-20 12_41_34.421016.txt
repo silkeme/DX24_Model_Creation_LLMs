@@ -1,0 +1,54 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+1. Pump equation:
+```python
+pump_flow = pump_N * pump_V
+```
+
+2. Valve flow equations:
+```python
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+3. Tank level equation:
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+```
+
+4. Tank outflow equation:
+```python
+tank1_outflow = valve1_flow
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal', 'valve0_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'valve1_flow',
+    'der_tank1_level', 'tank1_Diameter', 'valve0_flow', 'valve1_flow',
+    'tank1_outflow'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump_flow`: Volume flow rate of the pump
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0 (variable)
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve0_flow`: Volume flow rate through valve0
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1 (variable)
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `valve1_flow`: Volume flow rate through valve1
+- `der_tank1_level`: Rate of change of fluid level in tank1 (derivative of `tank1_level`)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank1_outflow`: Volume flow rate out of tank1
+
+This set of equations and variables provides a basic dynamic model for the flow of water through the pump, valves, and tank in the system. The model assumes incompressibility of water, no energy losses, and adiabatic process conditions. The tank is considered open to the atmosphere.

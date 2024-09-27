@@ -1,0 +1,53 @@
+Based on the provided information and the assumptions, we can create a dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+For the pump:
+```python
+pump_flow = pump_N * pump_V
+```
+
+For valve0 (assuming linear characteristic for simplicity):
+```python
+valve0_flow = valve0_opening * valve0_Flow_Nominal
+valve0_dp = valve0_flow ** 2 * valve0_dp_nominal
+```
+
+For tank1 (mass balance):
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.14159 * (tank1_Diameter / 2) ** 2)
+```
+
+For valve1 (assuming linear characteristic for simplicity):
+```python
+valve1_flow = valve1_opening * valve1_Flow_Nominal
+valve1_dp = valve1_flow ** 2 * valve1_dp_nominal
+```
+
+Now, we will store all the variables in a list as requested:
+
+```python
+variables = [
+    pump_flow, pump_N, pump_V,
+    valve0_flow, valve0_opening, valve0_Flow_Nominal, valve0_dp, valve0_dp_nominal,
+    der_tank1_level, tank1_Diameter,
+    valve1_flow, valve1_opening, valve1_Flow_Nominal, valve1_dp, valve1_dp_nominal
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump_N`: Rotational speed of the pump
+- `pump_V`: Displacement volume of the pump per revolution
+- `valve0_flow`: Volume flow rate through valve0
+- `valve0_opening`: Opening fraction of valve0
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0
+- `der_tank1_level`: Rate of change of fluid level in tank1
+- `tank1_Diameter`: Diameter of tank1
+- `valve1_flow`: Volume flow rate through valve1
+- `valve1_opening`: Opening fraction of valve1
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1
+
+Please note that the actual implementation would require additional information such as the cross-sectional area of the pump and valves, the density of the fluid, and the gravitational constant if the tank levels are to be used in calculating pressure changes. However, these details are not provided and are not necessary for the current level of modeling.

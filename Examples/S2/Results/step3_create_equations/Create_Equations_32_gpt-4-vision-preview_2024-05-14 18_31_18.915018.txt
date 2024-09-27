@@ -1,0 +1,40 @@
+Based on the provided table, image, and variable names, we can create a dynamical model for the system. We will use the following assumptions:
+
+- The fluid in the system is water, which is incompressible.
+- There are no energy losses, and the process is adiabatic.
+- The tanks are open to the atmosphere, so the pressure at the water surface is constant.
+
+Let's define the equations for the volume flow through the valves and pumps and the fluid level in the tanks:
+
+```python
+# Equations for pumps
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# List of all variables
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    tank1_Diameter, tank2_Diameter, tank_Diameter,
+    pump_N_Nominal, pump1_N_Nominal,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    pump_V, pump1_V
+]
+```
+
+This set of equations assumes that the flow through each pump is proportional to its speed relative to the nominal speed and that the volume flow through each valve is proportional to its opening times the nominal flow. The rate of change of the fluid level in each tank is the difference between the inflow and outflow divided by the cross-sectional area of the tank.
+
+The list `variables` contains all the variables used in the equations.

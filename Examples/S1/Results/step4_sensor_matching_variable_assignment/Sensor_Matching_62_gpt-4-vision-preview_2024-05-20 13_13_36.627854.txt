@@ -1,0 +1,25 @@
+```python
+model_def = {
+    'type': 'Symbolic',
+    'x': ['valve0_dp', 'valve1_dp', 'tank1_level', 'der_tank1_level'],
+    'f': ['f_tank1leak', 'f_valve0', 'f_valve1', 'f_pumpSlow'],
+    'z': ['FI1', 'FI2', 'LI3', 'FI4', 'pump_N', 'valve0_opening', 'valve1_opening'],
+    'parameters': ['pump_V', 'valve0_Flow_Nominal', 'valve1_Flow_Nominal', 'valve0_dp_nominal', 'valve1_dp_nominal', 'tank1_Diameter']
+}
+
+# Sensor equations
+FI1 = pump_V_flow
+FI2 = valve0_V_flow
+LI3 = tank1_level
+FI4 = valve1_V_flow
+
+# Pump flow equation
+pump_V_flow = pump_N * pump_V * (1 - f_pumpSlow)
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - valve0_dp / valve0_dp_nominal) * (1 - f_valve0)
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - valve1_dp / valve1_dp_nominal) * (1 - f_valve1)
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow - f_tank1leak) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+```

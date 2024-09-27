@@ -1,0 +1,36 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equation
+pump_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+
+# Tank level equation
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+
+# Assuming the tank cross-sectional area A = π * (D/2)^2 and the volume V = A * h,
+# where D is the diameter and h is the height (level) of the tank.
+tank1_cross_sectional_area = 3.141592653589793 * (tank1_Diameter / 2)**2
+tank1_volume = tank1_cross_sectional_area * tank1_level
+
+# Assuming the density of water ρ = 1000 kg/m^3 (constant, as water is incompressible)
+# and using the continuity equation Q = A * v, where Q is the flow rate and v is the velocity,
+# we can relate the flow rate through the pump and valves to the change in tank volume.
+# Since the process is adiabatic and there are no energy losses, we do not need to account for energy equations.
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    pump_flow, pump_N, pump_V,
+    valve0_flow, valve0_opening, valve0_Flow_Nominal, valve0_dp, valve0_dp_nominal,
+    valve1_flow, valve1_opening, valve1_Flow_Nominal, valve1_dp, valve1_dp_nominal,
+    der_tank1_level, tank1_level, tank1_Diameter, tank1_cross_sectional_area, tank1_volume
+]
+```
+
+This list includes the derivatives of the variables that change over time, such as `der_tank1_level`, which represents the rate of change of the water level in `tank1`. The other variables are parameters, control variables, and state variables that are part of the system's dynamics.

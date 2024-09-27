@@ -1,0 +1,39 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and the process is adiabatic with no energy losses, we can simplify the equations.
+
+First, let's define the equations for the pump and valves using the Bernoulli equation and the control variables for the pump speed and valve openings:
+
+```python
+# Pump equation
+pump_flow = pump_N / pump_N_Nominal * pump_V
+
+# Valve0 flow equation
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+
+# Valve1 flow equation
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+Next, we'll define the mass balance for Tank1. The rate of change of the mass in the tank is equal to the inflow minus the outflow. Since the fluid is incompressible, we can relate the mass to the volume using the density of water (approximately 1000 kg/m^3 for water at room temperature):
+
+```python
+# Tank1 mass balance
+der_tank1_m = valve0_flow - valve1_flow
+
+# Tank1 level calculation based on mass and tank geometry
+tank1_level = tank1_m / (3.14159265359 * (tank1_Diameter / 2)**2 * 1000)
+der_tank1_level = der_tank1_m / (3.14159265359 * (tank1_Diameter / 2)**2 * 1000)
+```
+
+Now, let's create a list of all the variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'pump_N_Nominal', 'valve0_opening', 'valve0_Flow_Nominal',
+    'valve0_dp', 'valve0_dp_nominal', 'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp',
+    'valve1_dp_nominal', 'tank1_Diameter', 'tank1_m', 'tank1_level', 'der_tank1_m', 'der_tank1_level'
+]
+```
+
+This list includes the variables directly used in the equations, as well as the derivatives of the mass and level of Tank1, which are part of the dynamical model.
+
+Please note that the actual implementation would require additional information such as the nominal pump speed, valve flow coefficients, and the diameter of the tank, which are typically provided as parameters in a real-world scenario. The equations provided here are simplified and assume that all necessary parameters are known and that the system operates under the given assumptions.

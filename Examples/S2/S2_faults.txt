@@ -1,0 +1,1 @@
+faults = "Leakage of tank1: 'f_tank1leak'. Leakage of tank2: 'f_tank2leak'. ValveLinear1 blocked: 'f_valve1'. ValveLinear2 blocked: 'f_valve2'. ValveLinear3 blocked: 'f_valve3'."

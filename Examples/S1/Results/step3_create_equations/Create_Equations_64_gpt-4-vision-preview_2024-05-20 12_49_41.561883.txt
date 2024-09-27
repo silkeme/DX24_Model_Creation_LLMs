@@ -1,0 +1,46 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+```python
+# Equations for the pump
+pump_flow = pump_N * pump_V
+
+# Equations for valve0
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)
+
+# Equations for tank1
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+
+# Equations for valve1
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)
+
+# List of variables used in the equations
+variables = [
+    'pump_N', 'pump_V', 'pump_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal', 'valve0_flow',
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level', 'valve1_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal',
+    'der_pump_medium_T', 'der_pump_medium_p', 'der_tank1_medium_T', 'der_pipe4_flowModel_states_1__h',
+    'der_pump_U', 'der_pump_m', 'der_pump_medium_u', 'der_pump_rho', 'der_tank1_U', 'der_tank1_V',
+    'der_tank1_heatTransfer_states_1__d', 'der_tank1_m', 'der_tank1_medium_u', 'der_tank1_ports_1__h_outflow'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume parameter
+- `pump_flow`: Volume flow rate through the pump
+- `valve0_opening`: Valve0 opening control variable
+- `valve0_Flow_Nominal`: Nominal flow rate through valve0
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0
+- `valve0_flow`: Volume flow rate through valve0
+- `tank1_Diameter`: Diameter of tank1
+- `tank1_level`: Level of fluid in tank1
+- `der_tank1_level`: Rate of change of fluid level in tank1
+- `valve1_flow`: Volume flow rate through valve1
+- `valve1_opening`: Valve1 opening control variable
+- `valve1_Flow_Nominal`: Nominal flow rate through valve1
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1
+
+The `der_` prefix indicates a derivative with respect to time, representing the rate of change of the variable. The list `variables` contains all the variables that appear in the equations.

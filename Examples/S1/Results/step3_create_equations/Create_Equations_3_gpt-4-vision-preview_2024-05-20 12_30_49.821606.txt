@@ -1,0 +1,39 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for incompressible flow to model the pumps and valves, and a mass balance for the tank.
+
+First, let's define the equations for the pump and valves, assuming that the flow is proportional to the square root of the pressure difference across the device and the opening of the valves:
+
+```python
+pump_flow = pump_N * pump_V
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (pump_dp_pump / valve0_dp_nominal)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (tank1_ports_1__p / valve1_dp_nominal)**0.5
+```
+
+Next, we'll define the mass balance for the tank. The rate of change of the mass in the tank is equal to the mass flow in minus the mass flow out. Since the fluid is water and incompressible, we can relate the mass flow to the volume flow and the density of water (which we'll assume to be constant):
+
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.14159 * (tank1_Diameter / 2)**2)
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'valve0_opening', 'valve0_Flow_Nominal', 'valve1_opening', 
+    'valve1_Flow_Nominal', 'pump_dp_pump', 'valve0_dp_nominal', 'valve1_dp_nominal', 
+    'tank1_ports_1__p', 'tank1_Diameter', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Control variable for the pump speed.
+- `pump_V`: Parameter for the pump volume.
+- `valve0_opening`: Control variable for the opening of valve0.
+- `valve0_Flow_Nominal`: Parameter for the nominal flow through valve0.
+- `valve1_opening`: Control variable for the opening of valve1.
+- `valve1_Flow_Nominal`: Parameter for the nominal flow through valve1.
+- `pump_dp_pump`: Pressure difference across the pump.
+- `valve0_dp_nominal`: Nominal pressure difference for valve0.
+- `valve1_dp_nominal`: Nominal pressure difference for valve1.
+- `tank1_ports_1__p`: Pressure at the outlet of tank1.
+- `tank1_Diameter`: Parameter for the diameter of tank1.
+- `der_tank1_level`: Derivative of the tank1 water level with respect to time.

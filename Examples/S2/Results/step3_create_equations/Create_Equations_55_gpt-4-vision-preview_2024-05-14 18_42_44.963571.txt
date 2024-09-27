@@ -1,0 +1,42 @@
+Based on the provided table, variable names, parameter names, control variable names, and the image of the system, we can create a set of equations to model the dynamics of the system. We will use the following assumptions:
+
+- The fluid in the system is water, which is incompressible.
+- There are no energy losses, and the process is adiabatic.
+- The tanks are open to the atmosphere, so the pressure at the water surface is constant.
+
+Let's define the equations for the volume flow through the valves and pumps and the fluid level in the tanks:
+
+```python
+# Equations for pumps
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_m_flow) / (3.14159265359 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_m_flow) / (3.14159265359 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_m_flow - pump1_flow) / (3.14159265359 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_m_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * (1 - valveLinear1_dp / valveLinear1_dp_nominal)
+valveLinear2_m_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * (1 - valveLinear2_dp / valveLinear2_dp_nominal)
+valveLinear3_m_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * (1 - valveLinear3_dp / valveLinear3_dp_nominal)
+
+# List of all variables in the equations
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    valveLinear1_m_flow, valveLinear2_m_flow, valveLinear3_m_flow,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    tank1_Diameter, tank2_Diameter, tank_Diameter,
+    pump_N_Nominal, pump1_N_Nominal,
+    pump_V, pump1_V,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    valveLinear1_dp_nominal, valveLinear2_dp_nominal, valveLinear3_dp_nominal,
+    valveLinear1_dp, valveLinear2_dp, valveLinear3_dp
+]
+```
+
+This set of equations assumes that the flow through each pump is proportional to its speed relative to the nominal speed and the nominal volume flow rate of the pump. The change in the level of each tank is calculated based on the difference between the inflow and outflow, divided by the cross-sectional area of the tank. The flow through each valve is assumed to be proportional to its opening and the nominal flow rate, adjusted for the pressure drop across the valve.
+
+The list `variables` contains all the variables that appear in the equations. This list will be used to keep track of the variables when implementing the model in a simulation environment.

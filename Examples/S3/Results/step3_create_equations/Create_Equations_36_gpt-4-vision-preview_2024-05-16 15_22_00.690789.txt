@@ -1,0 +1,54 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Tank level dynamics (continuity equation)
+der_tank1_level = (valveLinear1_V_flow - valveLinear2_V_flow - valveLinear3_V_flow) / (3.1415 * (tank1_Diameter / 2)**2)
+der_tank2_level = (valveLinear2_V_flow - valveLinear4_V_flow) / (3.1415 * (tank2_Diameter / 2)**2)
+der_tank3_level = (valveLinear3_V_flow - valveLinear5_V_flow) / (3.1415 * (tank3_Diameter / 2)**2)
+der_tank4_level = (valveLinear4_V_flow + valveLinear5_V_flow - valveLinear6_V_flow) / (3.1415 * (tank4_Diameter / 2)**2)
+
+# Valve flow equations (assuming linear valve characteristics)
+valveLinear1_V_flow = valveLinear1_Flow_Nominal * valveLinear1_opening * (1 - (valveLinear1_dp / valveLinear1_dp_nominal))
+valveLinear2_V_flow = valveLinear2_Flow_Nominal * valveLinear2_opening * (1 - (valveLinear2_dp / valveLinear2_dp_nominal))
+valveLinear3_V_flow = valveLinear3_Flow_Nominal * valveLinear3_opening * (1 - (valveLinear3_dp / valveLinear3_dp_nominal))
+valveLinear4_V_flow = valveLinear4_Flow_Nominal * valveLinear4_opening * (1 - (valveLinear4_dp / valveLinear4_dp_nominal))
+valveLinear5_V_flow = valveLinear5_Flow_Nominal * valveLinear5_opening * (1 - (valveLinear5_dp / valveLinear5_dp_nominal))
+valveLinear6_V_flow = valveLinear6_Flow_Nominal * valveLinear6_opening * (1 - (valveLinear6_dp / valveLinear6_dp_nominal))
+
+# Pressure drop across valves (simplified Bernoulli equation)
+valveLinear1_dp = tank1_level * 9.81
+valveLinear2_dp = (tank1_level - tank2_level) * 9.81
+valveLinear3_dp = (tank1_level - tank3_level) * 9.81
+valveLinear4_dp = (tank2_level - tank4_level) * 9.81
+valveLinear5_dp = (tank3_level - tank4_level) * 9.81
+valveLinear6_dp = tank4_level * 9.81
+
+# Valve 7 is not connected in the system, so we exclude it from the model
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    der_tank1_level, tank1_level, valveLinear1_V_flow, valveLinear1_dp, valveLinear1_Flow_Nominal, valveLinear1_dp_nominal, valveLinear1_opening,
+    der_tank2_level, tank2_level, valveLinear2_V_flow, valveLinear2_dp, valveLinear2_Flow_Nominal, valveLinear2_dp_nominal, valveLinear2_opening,
+    der_tank3_level, tank3_level, valveLinear3_V_flow, valveLinear3_dp, valveLinear3_Flow_Nominal, valveLinear3_dp_nominal, valveLinear3_opening,
+    der_tank4_level, tank4_level, valveLinear4_V_flow, valveLinear4_dp, valveLinear4_Flow_Nominal, valveLinear4_dp_nominal, valveLinear4_opening,
+    valveLinear5_V_flow, valveLinear5_dp, valveLinear5_Flow_Nominal, valveLinear5_dp_nominal, valveLinear5_opening,
+    valveLinear6_V_flow, valveLinear6_dp, valveLinear6_Flow_Nominal, valveLinear6_dp_nominal, valveLinear6_opening,
+    tank1_Diameter, tank2_Diameter, tank3_Diameter, tank4_Diameter
+]
+```
+
+Symbols used:
+- `der_tankX_level`: Time derivative of the water level in tank X
+- `tankX_level`: Water level in tank X
+- `valveLinearX_V_flow`: Volume flow rate through valve X
+- `valveLinearX_dp`: Pressure drop across valve X
+- `valveLinearX_Flow_Nominal`: Nominal flow rate of valve X
+- `valveLinearX_dp_nominal`: Nominal pressure drop across valve X
+- `valveLinearX_opening`: Opening fraction of valve X (0-1)
+- `tankX_Diameter`: Diameter of tank X
+- `tankX_Height`: Height of tank X
+
+Note: The equations assume a simple linear relationship between valve opening and flow rate, and they use a simplified version of the Bernoulli equation to calculate the pressure drop across the valves. The tanks are assumed to be cylindrical, and the water level is related to the volume flow rate and the cross-sectional area of the tanks.

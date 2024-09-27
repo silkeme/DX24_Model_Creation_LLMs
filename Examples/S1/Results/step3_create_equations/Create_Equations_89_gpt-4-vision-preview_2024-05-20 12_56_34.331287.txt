@@ -1,0 +1,45 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the given variable names and parameters to define the equations for the pump, valves, and tank.
+
+First, let's define the equations for the pump and valves using the flow nominal parameters and control variables for the opening of the valves:
+
+```python
+# Pump equation
+pump_flow = pump_N / pump_N_Nominal * pump_V
+
+# Valve equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - valve0_dp / valve0_dp_nominal)
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - valve1_dp / valve1_dp_nominal)
+```
+
+Next, we'll define the equation for the tank level based on the inflow and outflow:
+
+```python
+# Tank level equation
+der_tank1_level = (valve0_flow - valve1_flow) / (3.14159265359 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's define the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_N_Nominal', 'pump_V', 'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'tank1_Diameter', 'der_tank1_level'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed
+- `pump_N_Nominal`: Nominal pump speed
+- `pump_V`: Pump volume
+- `valve0_opening`: Opening fraction of valve0
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0
+- `valve1_opening`: Opening fraction of valve1
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1
+- `tank1_Diameter`: Diameter of tank1
+- `der_tank1_level`: Rate of change of fluid level in tank1
+
+Please note that the equations provided are simplified and based on the assumptions given. In a real-world scenario, additional factors such as pump efficiency, valve characteristics, and tank geometry would need to be considered.

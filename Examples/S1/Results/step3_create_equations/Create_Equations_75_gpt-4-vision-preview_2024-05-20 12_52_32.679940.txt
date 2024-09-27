@@ -1,0 +1,33 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+
+# Assuming the density of water is constant (incompressible fluid)
+tank1_m = 1000 * tank1_V  # Density of water is approximately 1000 kg/m^3
+der_tank1_m = valve0_V_flow - valve1_V_flow
+
+# Assuming adiabatic process, no energy losses, and open tanks
+# No equations for temperature or pressure changes are needed
+```
+
+Now, we will create a list of all the variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'pump_V_flow', 'valve0_opening', 'valve0_Flow_Nominal',
+    'valve0_dp', 'valve0_dp_nominal', 'valve0_V_flow', 'valve1_opening', 'valve1_Flow_Nominal',
+    'valve1_dp', 'valve1_dp_nominal', 'valve1_V_flow', 'tank1_Diameter', 'tank1_V',
+    'tank1_level', 'der_tank1_level', 'der_tank1_m'
+]
+```
+
+This list includes the variables directly from the equations, the variable list, and the parameter list. The `der_` prefix indicates a derivative with respect to time, which is a common notation in dynamic modeling to represent the rate of change of a variable.

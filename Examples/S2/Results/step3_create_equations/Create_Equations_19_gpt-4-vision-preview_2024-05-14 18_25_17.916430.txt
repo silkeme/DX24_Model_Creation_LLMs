@@ -1,0 +1,58 @@
+Based on the provided table, variable names, parameter names, control variable names, and the image of the system, we can create the following equations for the model:
+
+```python
+# Equations for pumps
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# List of variables
+variables = [
+    pump_flow, pump1_flow,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow,
+    tank1_level, tank2_level, tank_level,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    pump_N_Nominal, pump1_N_Nominal,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    tank1_Diameter, tank2_Diameter, tank_Diameter
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow through the pump
+- `pump1_flow`: Volume flow through pump1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `der_tank2_level`: Rate of change of water level in tank2
+- `der_tank_level`: Rate of change of water level in tank
+- `valveLinear1_V_flow`: Volume flow through valveLinear1
+- `valveLinear2_V_flow`: Volume flow through valveLinear2
+- `valveLinear3_V_flow`: Volume flow through valveLinear3
+- `tank1_level`: Water level in tank1
+- `tank2_level`: Water level in tank2
+- `tank_level`: Water level in tank
+- `pump_N`: Speed of the pump
+- `pump1_N`: Speed of pump1
+- `valveLinear1_opening`: Opening of valveLinear1
+- `valveLinear2_opening`: Opening of valveLinear2
+- `valveLinear3_opening`: Opening of valveLinear3
+- `pump_N_Nominal`: Nominal speed of the pump
+- `pump1_N_Nominal`: Nominal speed of pump1
+- `valveLinear1_Flow_Nominal`: Nominal flow of valveLinear1
+- `valveLinear2_Flow_Nominal`: Nominal flow of valveLinear2
+- `valveLinear3_Flow_Nominal`: Nominal flow of valveLinear3
+- `tank1_Diameter`: Diameter of tank1
+- `tank2_Diameter`: Diameter of tank2
+- `tank_Diameter`: Diameter of tank
+
+The equations assume that the flow through the pumps is proportional to their speed and that the flow through the valves is proportional to their opening. The rate of change of the water level in each tank is calculated based on the difference between the inflow and outflow, divided by the cross-sectional area of the tank.

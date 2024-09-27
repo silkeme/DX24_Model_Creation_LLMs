@@ -1,0 +1,13 @@
+| Element        | Inputs from    | Outputs to     |
+|----------------|----------------|----------------|
+| valveLinear1   | Inlet          | tank1          |
+| tank1          | valveLinear1   | valveLinear2, valveLinear3 |
+| valveLinear2   | tank1          | tank2          |
+| tank2          | valveLinear2   | valveLinear4   |
+| valveLinear3   | tank1          | tank3          |
+| tank3          | valveLinear3   | valveLinear5   |
+| valveLinear4   | tank2          | tank4          |
+| tank4          | valveLinear4   | valveLinear6   |
+| valveLinear5   | tank3          | valveLinear7   |
+| valveLinear6   | tank4          | Outlet         |
+| valveLinear7   | valveLinear5   | valveLinear1   |

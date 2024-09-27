@@ -1,0 +1,48 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+
+# Tank outflow equation
+tank1_ports_2__m_flow = valve1_V_flow
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_V', 'pump_V_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal', 'valve0_V_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'valve1_V_flow',
+    'tank1_level', 'der_tank1_level', 'tank1_Diameter', 'tank1_ports_2__m_flow'
+]
+```
+
+Symbols used:
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump_V_flow`: Pump volume flow rate
+- `valve0_opening`: Valve0 opening control variable
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve0_V_flow`: Valve0 volume flow rate
+- `valve1_opening`: Valve1 opening control variable
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `valve1_V_flow`: Valve1 volume flow rate
+- `tank1_level`: Level of water in tank1
+- `der_tank1_level`: Rate of change of water level in tank1
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank1_ports_2__m_flow`: Mass flow rate out of tank1 through valve1
+
+Note: The equations assume that the pump speed (`pump_N`) and valve openings (`valve0_opening`, `valve1_opening`) are control variables that can be adjusted to control the flow rates. The pressure drops across the valves (`valve0_dp`, `valve1_dp`) would need to be calculated based on the system's dynamics, which are not provided here. The tank level (`tank1_level`) is a state variable that changes over time based on the difference between the inflow and outflow rates.

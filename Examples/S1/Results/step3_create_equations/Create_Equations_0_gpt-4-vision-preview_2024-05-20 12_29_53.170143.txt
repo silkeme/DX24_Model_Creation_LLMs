@@ -1,0 +1,60 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve flow equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+
+# Tank level equation
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+
+# Assuming the density of water is constant (incompressible fluid)
+tank1_ports_2__m_flow = valve0_V_flow
+valve1_m_flow = valve1_V_flow
+
+# Assuming adiabatic process, no energy losses, and open tanks
+# No equations for temperature or heat transfer are needed
+
+# List of variables used in the equations
+variables = [
+    'pump_V_flow', 'pump_N', 'pump_V',
+    'valve0_V_flow', 'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal',
+    'valve1_V_flow', 'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal',
+    'der_tank1_level', 'tank1_Diameter',
+    'tank1_ports_2__m_flow', 'valve1_m_flow'
+]
+
+# Add derivative variables
+variables.extend([
+    'der_pump_medium_T', 'der_pump_medium_p', 'der_tank1_level', 'der_tank1_medium_T',
+    'der_pipe4_flowModel_states_1__h', 'der_pump_U', 'der_pump_m', 'der_pump_medium_u', 'der_pump_rho',
+    'der_tank1_U', 'der_tank1_V', 'der_tank1_heatTransfer_states_1__d', 'der_tank1_m', 'der_tank1_medium_u',
+    'der_tank1_ports_1__h_outflow'
+])
+
+variables
+```
+
+Brief description of the used symbols:
+- `pump_V_flow`: Volume flow rate through the pump
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `valve0_V_flow`: Volume flow rate through valve0
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve1_V_flow`: Volume flow rate through valve1
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `der_tank1_level`: Derivative of the water level in tank1
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `tank1_ports_2__m_flow`: Mass flow rate out of tank1 through valve0
+- `valve1_m_flow`: Mass flow rate through valve1
+
+The derivative variables (e.g., `der_tank1_level`) represent the rate of change of the respective quantities with respect to time. These are included in the list of variables as they are part of the dynamic model.

@@ -1,0 +1,44 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+First, let's define the equations for the pump and valves, assuming that the flow is proportional to the pump speed and valve openings, and that the tank level changes based on the difference between inflow and outflow.
+
+```python
+# Pump equation
+pump_V_flow = pump_N * pump_V
+
+# Valve equations
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+
+# Tank level dynamics
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+```
+
+Now, let's store all the variables in a list as requested:
+
+```python
+variables = [
+    time, pump_medium_T, pump_medium_p, tank1_level, tank1_medium_T,
+    der_pump_medium_T, der_pump_medium_p, der_tank1_level, der_tank1_medium_T,
+    pump_N, valve0_opening, valve1_opening, pump_V_flow, valve0_V_flow, valve1_V_flow,
+    pump_V, valve0_Flow_Nominal, valve1_Flow_Nominal, tank1_Diameter
+]
+```
+
+This list includes the variables used in the equations, the derivatives, and the control variables. The parameters used in the equations are also included.
+
+Symbols used:
+- `pump_N`: Pump speed (control variable)
+- `pump_V`: Pump volume per revolution (parameter)
+- `pump_V_flow`: Volume flow rate of the pump
+- `valve0_opening`: Opening fraction of valve0 (control variable)
+- `valve1_opening`: Opening fraction of valve1 (control variable)
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve0_V_flow`: Volume flow rate through valve0
+- `valve1_V_flow`: Volume flow rate through valve1
+- `tank1_level`: Water level in tank1 (variable)
+- `der_tank1_level`: Derivative of the water level in tank1 (change over time)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+
+Please note that this model is highly simplified and does not account for many real-world complexities such as pump and valve characteristics, friction losses, and other hydraulic considerations.

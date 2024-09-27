@@ -1,0 +1,1 @@
+faults = "Leakage of tank1: 'f_tank1leak'. Valve0 blocked: 'f_valve0'. Valve1 blocked: 'f_valve1'. Degraded rotational speed of pump: 'f_pumpSlow'."

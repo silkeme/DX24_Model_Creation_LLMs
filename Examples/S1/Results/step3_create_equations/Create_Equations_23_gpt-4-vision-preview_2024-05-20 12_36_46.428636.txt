@@ -1,0 +1,42 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the Bernoulli equation for the pump and valves, and a mass balance for the tank. Since the fluid is water and incompressible, we can assume constant density (ρ) and use volumetric flow rates (Q).
+
+Let's define the equations:
+
+1. Pump equation, relating the pump speed (N) to the volumetric flow rate (Q):
+```python
+pump_Q = pump_N * pump_V
+```
+
+2. Valve equations, relating the valve opening to the volumetric flow rate (Q) through the valve:
+```python
+valve0_Q = valve0_opening * valve0_Flow_Nominal
+valve1_Q = valve1_opening * valve1_Flow_Nominal
+```
+
+3. Tank level equation, derived from the mass balance on the tank:
+```python
+der_tank1_level = (valve0_Q - valve1_Q) / (tank1_Diameter**2 * 3.14159 / 4)
+```
+
+Now, let's store all the variables in a list:
+```python
+variables = [
+    pump_Q, pump_N, pump_V, valve0_Q, valve0_opening, valve0_Flow_Nominal,
+    valve1_Q, valve1_opening, valve1_Flow_Nominal, der_tank1_level, tank1_Diameter
+]
+```
+
+Brief description of the used symbols:
+- `pump_Q`: Volumetric flow rate through the pump
+- `pump_N`: Pump speed
+- `pump_V`: Volume per revolution of the pump
+- `valve0_Q`: Volumetric flow rate through Valve0
+- `valve0_opening`: Opening fraction of Valve0
+- `valve0_Flow_Nominal`: Nominal flow rate of Valve0
+- `valve1_Q`: Volumetric flow rate through Valve1
+- `valve1_opening`: Opening fraction of Valve1
+- `valve1_Flow_Nominal`: Nominal flow rate of Valve1
+- `der_tank1_level`: Rate of change of the water level in Tank1
+- `tank1_Diameter`: Diameter of Tank1
+
+Please note that the actual Python code would require defining the variables and parameters with their values, and the equations would need to be integrated over time to simulate the system dynamics.

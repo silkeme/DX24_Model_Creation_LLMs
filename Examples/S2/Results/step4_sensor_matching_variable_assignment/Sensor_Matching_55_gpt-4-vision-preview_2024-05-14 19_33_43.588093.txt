@@ -1,0 +1,78 @@
+```python
+model_def = {
+    'type': 'Symbolic',
+    'x': [],  # unknown variables
+    'f': [],  # faults
+    'z': [],  # known variables
+    'parameters': []  # parameters
+}
+
+# Sensor variables
+FI_1 = None
+LI_2 = None
+FI_3 = None
+LI_4 = None
+FI_5 = None
+LI_6 = None
+FI_7 = None
+
+# Adding sensor variables to the dictionary under key 'z'
+model_def['z'] = ['FI_1', 'LI_2', 'FI_3', 'LI_4', 'FI_5', 'LI_6', 'FI_7']
+
+# Equations for pumps
+pump_flow = pump_N / pump_N_Nominal * pump_V
+pump1_flow = pump1_N / pump1_N_Nominal * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_m_flow) / (3.14159265359 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_m_flow) / (3.14159265359 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_m_flow - pump1_flow) / (3.14159265359 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_m_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * (1 - valveLinear1_dp / valveLinear1_dp_nominal)
+valveLinear2_m_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * (1 - valveLinear2_dp / valveLinear2_dp_nominal)
+valveLinear3_m_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * (1 - valveLinear3_dp / valveLinear3_dp_nominal)
+
+# Sensor equations
+FI_1 = pump_flow
+LI_2 = tank1_level
+FI_3 = valveLinear1_m_flow
+LI_4 = tank_level
+FI_5 = pump1_flow
+LI_6 = tank2_level
+FI_7 = valveLinear3_m_flow
+
+# Parameters from the list
+model_def['parameters'] = [
+    'pump_N_Nominal', 'pump1_N_Nominal',
+    'valveLinear1_Flow_Nominal', 'valveLinear2_Flow_Nominal', 'valveLinear3_Flow_Nominal',
+    'valveLinear1_dp_nominal', 'valveLinear2_dp_nominal', 'valveLinear3_dp_nominal',
+    'pump_V', 'pump1_V',
+    'tank1_Diameter', 'tank2_Diameter', 'tank_Diameter'
+]
+
+# Control variables from the list
+model_def['z'].extend(['pump_N', 'pump1_N', 'valveLinear1_opening', 'valveLinear2_opening', 'valveLinear3_opening'])
+
+# Faults
+model_def['f'] = ['f_tank1leak', 'f_tank2leak', 'f_valve1', 'f_valve2', 'f_valve3']
+
+# Remaining variables
+model_def['x'] = [
+    'pump_flow', 'pump1_flow',
+    'der_tank1_level', 'der_tank2_level', 'der_tank_level',
+    'valveLinear1_m_flow', 'valveLinear2_m_flow', 'valveLinear3_m_flow',
+    'tank1_level', 'tank2_level', 'tank_level',
+    'valveLinear1_dp', 'valveLinear2_dp', 'valveLinear3_dp'
+]
+
+# Adjusting equations for faults
+der_tank1_level = (pump_flow - valveLinear1_m_flow - f_tank1leak) / (3.14159265359 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_m_flow - f_tank2leak) / (3.14159265359 * (tank2_Diameter / 2) ** 2)
+valveLinear1_m_flow = valveLinear1_opening * valveLinear1_Flow_Nominal * (1 - valveLinear1_dp / valveLinear1_dp_nominal) * (1 - f_valve1)
+valveLinear2_m_flow = valveLinear2_opening * valveLinear2_Flow_Nominal * (1 - valveLinear2_dp / valveLinear2_dp_nominal) * (1 - f_valve2)
+valveLinear3_m_flow = valveLinear3_opening * valveLinear3_Flow_Nominal * (1 - valveLinear3_dp / valveLinear3_dp_nominal) * (1 - f_valve3)
+
+# Output the complete model
+print(model_def)
+```

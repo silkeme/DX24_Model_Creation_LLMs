@@ -1,0 +1,48 @@
+Based on the provided table, image, and assumptions, we can create a dynamical model for the system. We will use the Bernoulli equation for pumps and valves and a mass balance for the tanks. Since the fluid is water and incompressible, we can assume constant density (ρ) and use volumetric flow rates (Q) instead of mass flow rates.
+
+Here are the equations for the system:
+
+```python
+# Pump equations
+pump_Q = pump_N / pump_N_Nominal * pump_V
+pump1_Q = pump1_N / pump1_N_Nominal * pump1_V
+
+# Valve equations
+valveLinear1_Q = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_Q = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_Q = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# Tank level dynamics (mass balance)
+der_tank1_level = (pump_Q - valveLinear1_Q) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_Q - valveLinear3_Q) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_Q - pump1_Q) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+
+# Tank outflow dynamics
+tank1_outflow_Q = valveLinear1_Q
+tank2_outflow_Q = valveLinear3_Q
+tank_outflow_Q = pump1_Q
+
+# Pump outflow dynamics
+pump_outflow_Q = pump_Q
+pump1_outflow_Q = pump1_Q
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    pump_Q, pump1_Q,
+    valveLinear1_Q, valveLinear2_Q, valveLinear3_Q,
+    der_tank1_level, der_tank2_level, der_tank_level,
+    tank1_outflow_Q, tank2_outflow_Q, tank_outflow_Q,
+    pump_outflow_Q, pump1_outflow_Q,
+    pump_N, pump1_N,
+    valveLinear1_opening, valveLinear2_opening, valveLinear3_opening,
+    pump_N_Nominal, pump1_N_Nominal,
+    valveLinear1_Flow_Nominal, valveLinear2_Flow_Nominal, valveLinear3_Flow_Nominal,
+    pump_V, pump1_V,
+    tank1_Diameter, tank2_Diameter, tank_Diameter
+]
+```
+
+This list includes all the variables that appear in the equations, as well as the control variables and parameters that are used to calculate the flows and levels in the system. The equations assume that the pumps and valves are directly controlling the flow rates, and the tank levels are changing based on the difference between inflow and outflow. The system is assumed to be adiabatic, with no energy losses, and the tanks are open to the atmosphere.

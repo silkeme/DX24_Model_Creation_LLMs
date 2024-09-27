@@ -1,0 +1,37 @@
+Based on the provided table, variable names, parameter names, control variable names, and the image of the system, we can create the following equations for the model:
+
+```python
+# Equations for pumps
+pump_flow = pump_N * pump_V
+pump1_flow = pump1_N * pump1_V
+
+# Equations for tanks
+der_tank1_level = (pump_flow - valveLinear1_V_flow) / (3.141592653589793 * (tank1_Diameter / 2) ** 2)
+der_tank2_level = (pump_flow - valveLinear3_V_flow) / (3.141592653589793 * (tank2_Diameter / 2) ** 2)
+der_tank_level = (valveLinear1_V_flow - pump1_flow) / (3.141592653589793 * (tank_Diameter / 2) ** 2)
+
+# Equations for valves
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+
+# List of all variables
+variables = [
+    time, pump_flow, pump1_flow, tank_level, tank1_level, tank2_level, der_tank_level, der_tank1_level, der_tank2_level,
+    valveLinear1_V_flow, valveLinear2_V_flow, valveLinear3_V_flow, pump_N, pump1_N, valveLinear1_opening,
+    valveLinear2_opening, valveLinear3_opening, tank1_Diameter, tank2_Diameter, tank_Diameter, pump_V, pump1_V
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow through the pump
+- `pump1_flow`: Volume flow through pump1
+- `tank_level`, `tank1_level`, `tank2_level`: Water levels in the tanks
+- `der_tank_level`, `der_tank1_level`, `der_tank2_level`: Time derivatives of the water levels in the tanks
+- `valveLinear1_V_flow`, `valveLinear2_V_flow`, `valveLinear3_V_flow`: Volume flows through the valves
+- `pump_N`, `pump1_N`: Rotational speeds of the pumps
+- `valveLinear1_opening`, `valveLinear2_opening`, `valveLinear3_opening`: Openings of the valves
+- `tank1_Diameter`, `tank2_Diameter`, `tank_Diameter`: Diameters of the tanks
+- `pump_V`, `pump1_V`: Volumes displaced per rotation by the pumps
+
+Note: The equations assume that the flow into the tank equals the flow out of the pump, and the flow out of the tank equals the flow through the valve. The volume flow through the valves is assumed to be proportional to their opening, with the nominal flow as the proportionality constant. The time derivative of the tank level is calculated by dividing the net flow rate by the cross-sectional area of the tank. The model assumes that the tanks have a circular cross-section.

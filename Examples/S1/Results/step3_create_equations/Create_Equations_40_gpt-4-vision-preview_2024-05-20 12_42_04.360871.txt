@@ -1,0 +1,36 @@
+Based on the provided information and the image of the system, we can create a simple dynamical model for the fluid flow and tank level. We will use the given variable names and parameters to define the equations for the pump, valves, and tank.
+
+First, let's define the equations for the pump and valves using the flow nominal parameters and control variables for the opening of the valves:
+
+```python
+# Pump equation
+pump_flow = pump_N / pump_N_Nominal * pump_V
+
+# Valve equations
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - valve0_dp / valve0_dp_nominal)
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - valve1_dp / valve1_dp_nominal)
+```
+
+Next, we'll define the tank level dynamics. The rate of change of the tank level is the difference between the inflow and outflow divided by the cross-sectional area of the tank:
+
+```python
+# Tank level dynamics
+tank1_cross_sectional_area = (tank1_Diameter / 2) ** 2 * 3.14159
+der_tank1_level = (valve0_flow - valve1_flow) / tank1_cross_sectional_area
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    pump_N, pump_N_Nominal, pump_V, 
+    valve0_opening, valve0_Flow_Nominal, valve0_dp, valve0_dp_nominal, 
+    valve1_opening, valve1_Flow_Nominal, valve1_dp, valve1_dp_nominal, 
+    tank1_Diameter, tank1_cross_sectional_area, 
+    der_tank1_level
+]
+```
+
+This list includes the control variables for the pump and valves, the parameters for the nominal flow and pressure drop across the valves, the tank diameter, the calculated cross-sectional area of the tank, and the derivative of the tank level.
+
+Please note that the actual implementation would require additional information such as the initial conditions, the actual pressure drops across the valves (which depend on the flow and other factors), and the integration of the derivative to obtain the tank level over time. However, this basic setup provides a starting point for the dynamical model of the system.

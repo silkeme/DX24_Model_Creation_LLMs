@@ -1,0 +1,30 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the control variables `pump_N`, `valve0_opening`, and `valve1_opening` to represent the pump speed and the openings of the valves, respectively. The volume flow through the pump and valves will be represented by `pump_V_flow`, `valve0_V_flow`, and `valve1_V_flow`. The level of water in `tank1` will be represented by `tank1_level`.
+
+The equations for the pump and valves, assuming a linear relationship between the control variables and the flow rates, and using the nominal flow parameters, could be:
+
+```python
+pump_V_flow = pump_N / pump_N_Nominal * pump_V
+valve0_V_flow = valve0_opening * valve0_Flow_Nominal
+valve1_V_flow = valve1_opening * valve1_Flow_Nominal
+```
+
+For the tank, we can use the conservation of mass to relate the inflow and outflow to the rate of change of the tank level. Assuming the cross-sectional area of the tank `A_tank1` is constant and can be calculated from the diameter `tank1_Diameter`, the equation for the tank level is:
+
+```python
+A_tank1 = (3.14159265359 * tank1_Diameter**2) / 4
+der_tank1_level = (valve0_V_flow - valve1_V_flow) / A_tank1
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'pump_N', 'pump_N_Nominal', 'pump_V', 'pump_V_flow',
+    'valve0_opening', 'valve0_Flow_Nominal', 'valve0_V_flow',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_V_flow',
+    'tank1_Diameter', 'tank1_level', 'der_tank1_level',
+    'A_tank1'
+]
+```
+
+Please note that the actual implementation of the model would require additional information such as the specific characteristics of the pump and valves, as well as the initial conditions and any potential dynamic effects that are not captured in this simple linear model. The equations provided are a starting point and would need to be refined for a more accurate representation of the system.

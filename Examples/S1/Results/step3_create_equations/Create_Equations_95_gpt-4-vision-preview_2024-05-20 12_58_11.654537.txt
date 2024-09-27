@@ -1,0 +1,48 @@
+Based on the provided information and the image of the system, we can create the following equations for the model:
+
+1. Pump equation:
+```python
+pump_flow = pump_N * pump_V
+```
+
+2. Valve flow equations:
+```python
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)**0.5
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)**0.5
+```
+
+3. Tank level equation:
+```python
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+```
+
+4. Assuming the tank is open and the process is adiabatic with no energy losses, the pressure at the tank's surface is atmospheric, and the energy equation simplifies to a balance of mass flows.
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    'time', 'pump_N', 'pump_V', 'valve0_opening', 'valve0_Flow_Nominal', 'valve0_dp', 'valve0_dp_nominal',
+    'valve1_opening', 'valve1_Flow_Nominal', 'valve1_dp', 'valve1_dp_nominal', 'tank1_Diameter', 'der_tank1_level',
+    'valve0_flow', 'valve1_flow', 'pump_flow'
+]
+```
+
+Brief description of the used symbols:
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume per revolution (parameter)
+- `valve0_opening`: Valve0 opening control variable
+- `valve0_Flow_Nominal`: Nominal flow rate of valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0 (variable)
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `valve1_opening`: Valve1 opening control variable
+- `valve1_Flow_Nominal`: Nominal flow rate of valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1 (variable)
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `der_tank1_level`: Rate of change of fluid level in tank1 (variable)
+- `valve0_flow`: Volume flow rate through valve0 (variable)
+- `valve1_flow`: Volume flow rate through valve1 (variable)
+- `pump_flow`: Volume flow rate through the pump (variable)
+
+Please note that the actual values for the pressure drops (`valve0_dp` and `valve1_dp`) would need to be calculated based on the system's dynamics, which may involve additional equations not provided here. The same applies to the control variables (`pump_N`, `valve0_opening`, `valve1_opening`), which would be set based on the desired operating conditions of the system.

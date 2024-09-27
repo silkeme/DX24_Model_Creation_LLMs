@@ -1,0 +1,46 @@
+Based on the provided information and the assumptions, we can create a simple dynamical model for the system. We will use the given variable names and parameters to define the equations for the volume flow through the valves and pumps and the fluid level in the tank.
+
+```python
+# Equations for the pump
+pump_flow = pump_N * pump_V
+
+# Equations for valve0
+valve0_flow = valve0_opening * valve0_Flow_Nominal * (1 - (valve0_dp / valve0_dp_nominal)**2)
+
+# Equations for tank1
+der_tank1_level = (valve0_flow - valve1_flow) / (3.141592653589793 * (tank1_Diameter / 2)**2)
+
+# Equations for valve1
+valve1_flow = valve1_opening * valve1_Flow_Nominal * (1 - (valve1_dp / valve1_dp_nominal)**2)
+
+# Assuming valve0_dp and valve1_dp are the pressure drops across the valves which are functions of the flow rates
+valve0_dp = valve0_flow**2 / valve0_Flow_Nominal
+valve1_dp = valve1_flow**2 / valve1_Flow_Nominal
+
+# List of all variables in the equations
+variables = [
+    pump_flow, pump_N, pump_V,
+    valve0_flow, valve0_opening, valve0_Flow_Nominal, valve0_dp, valve0_dp_nominal,
+    der_tank1_level, tank1_Diameter, valve1_flow,
+    valve1_opening, valve1_Flow_Nominal, valve1_dp, valve1_dp_nominal
+]
+```
+
+Brief description of the used symbols:
+- `pump_flow`: Volume flow rate through the pump
+- `pump_N`: Pump speed control variable
+- `pump_V`: Pump volume per revolution (parameter)
+- `valve0_flow`: Volume flow rate through valve0
+- `valve0_opening`: Control variable for valve0 opening
+- `valve0_Flow_Nominal`: Nominal flow rate through valve0 (parameter)
+- `valve0_dp`: Pressure drop across valve0
+- `valve0_dp_nominal`: Nominal pressure drop across valve0 (parameter)
+- `der_tank1_level`: Rate of change of fluid level in tank1
+- `tank1_Diameter`: Diameter of tank1 (parameter)
+- `valve1_flow`: Volume flow rate through valve1
+- `valve1_opening`: Control variable for valve1 opening
+- `valve1_Flow_Nominal`: Nominal flow rate through valve1 (parameter)
+- `valve1_dp`: Pressure drop across valve1
+- `valve1_dp_nominal`: Nominal pressure drop across valve1 (parameter)
+
+Please note that the actual implementation of the pressure drop equations (`valve0_dp` and `valve1_dp`) would depend on the specific characteristics of the valves and might require more complex expressions. The above equations are simplified for the purpose of this example.

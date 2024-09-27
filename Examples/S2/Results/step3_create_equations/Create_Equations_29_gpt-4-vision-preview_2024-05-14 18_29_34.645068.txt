@@ -1,0 +1,50 @@
+Based on the provided table, image, and variable names, we can create a dynamical model for the system. We will use the Bernoulli equation for pumps and valves and a simple mass balance for the tanks. Since the fluid is water and incompressible, we can assume constant density (ρ) and use the cross-sectional area (A) of the tanks to relate the volume flow rate (Q) to the change in water level (h).
+
+Here are the equations for the system:
+
+```python
+# Pump equations
+pump_Q = pump_N / pump_N_Nominal * pump_V
+der_pump_medium_h = pump_Q / (3.14159265359 * (tank_Diameter / 2) ** 2)
+
+# Tank1 equations
+tank1_Q_in = pump_Q
+tank1_Q_out = valveLinear1_V_flow
+der_tank1_level = (tank1_Q_in - tank1_Q_out) / (3.14159265359 * (tank1_Diameter / 2) ** 2)
+
+# ValveLinear1 equations
+valveLinear1_V_flow = valveLinear1_opening * valveLinear1_Flow_Nominal
+
+# Tank equations
+tank_Q_in = valveLinear1_V_flow
+tank_Q_out = pump1_V_flow
+der_tank_level = (tank_Q_in - tank_Q_out) / (3.14159265359 * (tank_Diameter / 2) ** 2)
+
+# Pump1 equations
+pump1_Q = pump1_N / pump1_N_Nominal * pump1_V
+der_pump1_medium_h = pump1_Q / (3.14159265359 * (tank_Diameter / 2) ** 2)
+
+# ValveLinear2 equations
+valveLinear2_V_flow = valveLinear2_opening * valveLinear2_Flow_Nominal
+
+# Tank2 equations
+tank2_Q_in = pump_Q
+tank2_Q_out = valveLinear3_V_flow
+der_tank2_level = (tank2_Q_in - tank2_Q_out) / (3.14159265359 * (tank2_Diameter / 2) ** 2)
+
+# ValveLinear3 equations
+valveLinear3_V_flow = valveLinear3_opening * valveLinear3_Flow_Nominal
+```
+
+Now, let's create the list of variables used in the equations:
+
+```python
+variables = [
+    pump_Q, der_pump_medium_h, tank1_Q_in, tank1_Q_out, der_tank1_level,
+    valveLinear1_V_flow, tank_Q_in, tank_Q_out, der_tank_level, pump1_Q,
+    der_pump1_medium_h, valveLinear2_V_flow, tank2_Q_in, tank2_Q_out,
+    der_tank2_level, valveLinear3_V_flow
+]
+```
+
+This list includes the flow rates through each pump and valve, as well as the derivatives of the medium height in the pumps and the water level in each tank. The variables starting with 'der' represent the time derivatives of the corresponding state variables.
