@@ -10,8 +10,8 @@ pipe1.Length;1
 pipe2.Length;1
 tank1.Height;2
 pump.N_Nominal;1200
-valve0.Flow_Nominal;400
-valve1.Flow_Nominal;400
+valve0.Flow_Nominal;0.4
+valve1.Flow_Nominal;0.4
 valve0.dp_nominal;10000
 valve1.dp_nominal;10000
-pump.V;1
+pump.V;0.001

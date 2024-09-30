@@ -23,11 +23,11 @@ tank1.Height;1
 tank2.Height;1
 pump.N_Nominal;1200
 pump1.N_Nominal;1200
-valveLinear1.Flow_Nominal;40
-valveLinear2.Flow_Nominal;40
-valveLinear3.Flow_Nominal;40
+valveLinear1.Flow_Nominal;0.04
+valveLinear2.Flow_Nominal;0.04
+valveLinear3.Flow_Nominal;0.04
 valveLinear1.dp_nominal;10000
 valveLinear2.dp_nominal;10000
 valveLinear3.dp_nominal;10000
-pump.V;1
-pump1.V;1
+pump.V;0.001
+pump1.V;0.001
